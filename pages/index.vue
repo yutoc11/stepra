@@ -1,17 +1,12 @@
-<template>
-  <section class="latest-posts">
-    <div class="posts">
-      <nuxt-link :to="'posts/'+post.fields.slug" class="post" v-for="(post, index) in posts" :key="index">
-        <div class="thumb">
-          <img :src="post.fields.image.fields.file.url">
-        </div>
-        <div class="post-text">
-          <p>{{ formatDate(post.sys.createdAt) }}</p>
-          <h2>{{ post.fields.title }}</h2>
-        </div>
-      </nuxt-link>
-    </div>
-  </section>
+<template lang="pug">
+  section.latest-posts
+    .posts
+      nuxt-link.post(:to="'posts/'+post.fields.slug" v-for="(post, index) in posts" :key="index")
+        .thumb
+          img(:src="post.fields.image.fields.file.url")
+        .post-text
+          p {{ formatDate(post.sys.createdAt) }}
+          h2 {{ post.fields.title }}
 </template>
 
 <script>

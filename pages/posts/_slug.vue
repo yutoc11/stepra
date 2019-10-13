@@ -1,11 +1,11 @@
-<template>
-  <article class="article">
-  <div class="single">
-    <h1 class="post-title">{{ post.fields.title }}</h1>
-    <p class="post-created-at">{{ formatDate(post.sys.createdAt) }}</p>
-    <div class="post-content" v-html="$md.render(post.fields.content)"></div>
-  </div>
-</article>
+<template lang="pug">
+  article.article
+    .single
+      h1.post-title {{ post.fields.title }}
+      p.post-created-at {{ formatDate(post.sys.createdAt) }}
+      .thumb
+        img(:src="post.fields.image.fields.file.url")
+      .post-content(v-html="$md.render(post.fields.content)")
 </template>
 
 <script>
@@ -63,6 +63,13 @@ padding: 10px;
   color: #222;
   border: 2px solid #444;
   border-radius: 10px;
+  .thumb{
+    margin: 30px auto;
+    width: 80%;
+    img{
+      width:100%;
+    }
+  }
   h1, h2, h3 {
     margin: 16px 0;
   }
