@@ -27,6 +27,15 @@ asyncData({ params, error, payload }) {
 head() {
   return {
     title: this.post.fields.title,
+    meta: [
+        { hid: 'description', name: 'description', content: this.post.fields.description },
+        { hid: 'og:site_name', property: 'og:site_name', content: this.post.fields.title + ' | ステプラ' },
+        { hid: 'og:type', property: 'og:type', content: 'website' },
+        { hid: 'og:url', property: 'og:url', content: 'https://izm51.com/posts/' + this.post.fields.slug },
+        { hid: 'og:title', property: 'og:title', content: this.post.fields.title },
+        { hid: 'og:description', property: 'og:description', content: this.post.fields.description },
+        { hid: 'og:image', property: 'og:image', content: this.post.fields.image.fields.file.url }
+      ]
   }
 },
 mounted() {

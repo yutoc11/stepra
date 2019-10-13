@@ -42,7 +42,10 @@ export default {
   */
   modules: [
     '@nuxtjs/dotenv',
-    '@nuxtjs/markdownit'
+    '@nuxtjs/markdownit',
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-149861330-1'
+    }],
   ],
   markdownit: {
     injected: true,
@@ -77,5 +80,19 @@ export default {
     */
     extend (config, ctx) {
     }
-  }
+  },
+  sitemap: {
+    path: '/sitemap.xml',
+    hostname: 'stepra',
+    routes() {
+      return client
+      .getEntries({ content_type: 'post' })
+      .then(entries => {
+        return entries.items.map(entry => {
+          return "/posts/" + entry.fields.slug
+        })
+      })
+    }
+    // generate: true,
+  },
 }

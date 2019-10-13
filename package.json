@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@nuxtjs/dotenv": "^1.4.1",
+    "@nuxtjs/google-analytics": "^2.2.0",
     "@nuxtjs/markdownit": "^1.2.7",
+    "@nuxtjs/sitemap": "^2.0.0",
     "contentful": "^7.10.0",
     "markdown-it": "^10.0.0",
     "node-sass": "^4.12.0",
