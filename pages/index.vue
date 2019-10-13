@@ -5,8 +5,7 @@
         .thumb
           img(:src="post.fields.image.fields.file.url")
         .post-text
-          p {{ formatDate(post.sys.createdAt) }}
-          h2 {{ post.fields.title }}
+          h3 {{ post.fields.title }}
 </template>
 
 <script>
@@ -41,6 +40,7 @@ export default {
 <style lang="scss">
 section.latest-posts {
   padding: 10px;
+  background: #F7F9F9;
   .posts {
     max-width: 900px;
     margin: 0 auto;
@@ -48,19 +48,20 @@ section.latest-posts {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    background: #ddd;
     a.post {
       width: calc(100% / 2 - 20px);
       @media (min-width: (768px)) {
         width: calc(100% / 3 - 20px);
       }
+      border-radius: 3px;
       margin: 10px;
+      padding:0 0 8px 0;
       background: #fff;
       text-decoration: none;
       color: #111;
       .thumb {
         width: 100%;
-        padding-bottom: 75%;
+        padding-bottom: 50%;
         position: relative;
         overflow: hidden;
         img {
@@ -69,15 +70,24 @@ section.latest-posts {
           left: 50%;
           transform: translate(-50%, -50%);
           max-width: 100%;
+          border-radius: 3px;
         }
       }
       .post-text {
-        padding: 5px 10px 10px;
-        h2 {
+        // padding: 5px 10px 10px;
+        h3 {
+          margin:16px 16px 8px;
           width: fit-content;
-          font-size: 20px;
+          font-size: 18px;
+        }
+        p{
+          color: #888C8B;
+          font-size: 12px;
         }
       }
+    }
+    a.post:hover,img:hover{
+
     }
   }
 }
