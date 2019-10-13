@@ -75,9 +75,22 @@ padding: 10px;
       font-size: 32px;
     }
     h2 {
-      font-size: 24px;
-      background: #ccc
-    }
+        font-size: 24px;
+        margin-top: -64px;
+        padding: 80px 5px 0;
+        position: relative;
+        z-index: 1;
+        &:before {
+          content: '';
+          height: 34px;
+          width: 100%;
+          background: #d6d6d6;
+          position: absolute;
+          top: 80px;
+          left: 0;
+          z-index: -1;
+        }
+      }
     p {
       margin: 16px 0;
       font-size: 16px;
@@ -85,6 +98,27 @@ padding: 10px;
     img {
       max-width: 100%;
       border: 1px solid #000;
+    }
+    padding: 0 0 15px;
+    position: relative;
+    z-index: 1;
+    > * {
+      position: relative;
+      z-index: 10; // h2のpadding部分より前面に来るように
+    }
+    .table-of-contents {
+      background: #f3f3f3;
+      border: 1px solid #ccc;
+      padding: 5px 10px;
+      width: fit-content;
+      ul {
+        padding-left: 24px;
+      }
+      &:before {
+        content: '目次';
+        font-weight: bold;
+        font-size: 16px;
+      }
     }
   }
 }
