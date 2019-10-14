@@ -31,7 +31,7 @@ export default {
   */
   plugins: [
     '~/plugins/contentful',
-    '~/plugins/markdownit', 
+    '~/plugins/markdownit',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -41,6 +41,11 @@ export default {
   /*
   ** Nuxt.js modules
   */
+  router: {
+    middleware: [
+      'getContentful'
+    ]
+  },
   modules: [
     '@nuxtjs/dotenv',
     '@nuxtjs/markdownit',

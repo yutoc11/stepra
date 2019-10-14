@@ -1,7 +1,7 @@
 <template lang="pug">
   section.latest-posts
     .posts
-      nuxt-link.post(:to="'posts/'+post.fields.slug" v-for="(post, index) in posts" :key="index")
+      nuxt-link.post(:to="linkTo('posts', post)" v-for="(post, index) in posts" :key="index")
         .thumb
           img(:src="post.fields.image.fields.file.url")
         .post-text
@@ -10,21 +10,19 @@
 
 <script>
 import client from '~/plugins/contentful'
+import { mapState, mapGetters } from 'vuex'
+
 export default {
-  asyncData({ params }) {
-    return client
-      .getEntries({
-        content_type: 'post',
-        order: '-sys.createdAt',
-      })
-      .then(entries => {
-        return { posts: entries.items }
-      })
-      .catch(e => console.log(e))
-  },
+
   head: {
     title: '記事一覧',
   },
+
+  computed:{
+    ...mapState(['posts']),
+    ...mapGetters(['linkTo'])
+  },
+
   methods: {
     formatDate(iso) {
       const date = new Date(iso)

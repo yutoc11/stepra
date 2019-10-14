@@ -14,21 +14,20 @@
 </template>
 
 <script>
-import client from '~/plugins/contentful'
+// import client from '~/plugins/contentful'
 
 export default {
-asyncData({ params, error, payload }) {
-  if (payload) return { post: payload }
-  return client
-    .getEntries({
-      content_type: 'post',
-      'fields.slug': params.slug,
-    })
-    .then(entries => {
-      return { post: entries.items[0] }
-    })
-    .catch(e => console.log(e))
-},
+
+async asyncData({ payload, store, params, error }) {
+    const post = payload || await store.state.posts.find(post => post.fields.slug === params.slug)
+
+    if (post) {
+      return { post }
+    } else {
+      return error({ statusCode: 400 })
+    }
+  },
+
 head() {
   return {
     title: this.post.fields.title,
