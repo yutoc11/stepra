@@ -1,17 +1,22 @@
 <template lang="pug">
-  article.article
+  section.section
     h1 {{ category.fields.name }}
-    .related-posts(
-      v-for="(post, i) in relatedPosts"
-      :key="i"
-      ) {{ post.fields.category.fields.name }}
+    posts-index(
+      :posts="relatedPosts"
+      :linkTo="linkTo")
 </template>
 
 <script>
+import PostsIndex from '~/components/PostsIndex'
 import { mapState, mapGetters } from 'vuex'
 export default {
 
+  components: {
+    PostsIndex,
+  },
+
   computed: {
+    ...mapGetters(['linkTo']),
     relatedPosts() {
       return this.$store.getters.relatedPosts(this.category)
     }
