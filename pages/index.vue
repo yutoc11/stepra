@@ -20,6 +20,7 @@ export default {
 
   computed:{
     ...mapState(['posts']),
+    ...mapState(['category']),
     ...mapGetters(['linkTo'])
   },
 
