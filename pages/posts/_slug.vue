@@ -3,11 +3,10 @@
     .content-wrapper
       .thumb
         img(:src="post.fields.image.fields.file.url")
-      .post-category-wrapper(
-        v-if="post.fields.category != undefined"
-      )
-        nuxt-link(:to="linkTo('category', post.fields.category)")
-          .post-category {{ post.fields.category.fields.name }}
+      post-category(
+        :post="post"
+        :linkTo="linkTo"
+        )
       h1.post-title {{ post.fields.title }}
       p.post-created-at {{ formatDate(post.sys.createdAt) }}
       .post-description(v-html="$md.render(post.fields.description)")
@@ -18,6 +17,8 @@
 </template>
 
 <script>
+import PostCategory from '~/components/PostCategory'
+
 import { mapState, mapGetters } from 'vuex'
 
 export default {
@@ -26,6 +27,10 @@ export default {
     ...mapState(['posts']),
     ...mapState(['categories']),
     ...mapGetters(['linkTo'])
+  },
+
+  components: {
+    PostCategory,
   },
 
   async asyncData({ payload, store, params, error }) {

@@ -1,6 +1,8 @@
 <template lang="pug">
-  section.section
-    h1 {{ category.fields.name }}
+  section
+    .category-name
+      h1 #
+       | {{ category.fields.name }}
     posts-index(
       :posts="relatedPosts"
       :linkTo="linkTo")
@@ -8,6 +10,7 @@
 
 <script>
 import PostsIndex from '~/components/PostsIndex'
+
 import { mapState, mapGetters } from 'vuex'
 export default {
 
@@ -35,4 +38,23 @@ export default {
 </script>
 
 <style lang="scss">
+
+  section{
+    background: #F7F9F9;
+  }
+
+  h1{
+    font-size: 20px;
+  }
+
+  .category-name{
+    background: #99E1D7;
+    border-radius: 3px;
+    color: #fff;
+    max-width: 400px;
+    padding: 12px 0 12px 0;
+    margin: 0 auto;
+    text-align: center;
+  }
+
 </style>
