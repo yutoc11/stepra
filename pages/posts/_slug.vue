@@ -3,7 +3,11 @@
     .content-wrapper
       .thumb
         img(:src="post.fields.image.fields.file.url")
-      .post-category(v-if="post.fields.category != undefined") {{ post.fields.category.fields.name }}
+      .post-category-wrapper(
+        v-if="post.fields.category != undefined"
+      )
+        nuxt-link(:to="linkTo('category', post.fields.category)")
+          .post-category {{ post.fields.category.fields.name }}
       h1.post-title {{ post.fields.title }}
       p.post-created-at {{ formatDate(post.sys.createdAt) }}
       .post-description(v-html="$md.render(post.fields.description)")
@@ -14,46 +18,52 @@
 </template>
 
 <script>
-// import client from '~/plugins/contentful'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
 
-async asyncData({ payload, store, params, error }) {
-    const post = payload || await store.state.posts.find(post => post.fields.slug === params.slug)
-
-    if (post) {
-      return { post }
-    } else {
-      return error({ statusCode: 400 })
-    }
+  computed:{
+    ...mapState(['posts']),
+    ...mapState(['categories']),
+    ...mapGetters(['linkTo'])
   },
 
-head() {
-  return {
-    title: this.post.fields.title,
-    meta: [
-        { hid: 'description', name: 'description', content: this.post.fields.description },
-        { hid: 'og:site_name', property: 'og:site_name', content: this.post.fields.title + ' | ステプラ' },
-        { hid: 'og:type', property: 'og:type', content: 'website' },
-        { hid: 'og:url', property: 'og:url', content: 'https://izm51.com/posts/' + this.post.fields.slug },
-        { hid: 'og:title', property: 'og:title', content: this.post.fields.title },
-        { hid: 'og:description', property: 'og:description', content: this.post.fields.description },
-        { hid: 'og:image', property: 'og:image', content: this.post.fields.image.fields.file.url }
-      ]
+  async asyncData({ payload, store, params, error }) {
+      const post = payload || await store.state.posts.find(post => post.fields.slug === params.slug)
+
+      if (post) {
+        return { post }
+      } else {
+        return error({ statusCode: 400 })
+      }
+    },
+
+  head() {
+    return {
+      title: this.post.fields.title,
+      meta: [
+          { hid: 'description', name: 'description', content: this.post.fields.description },
+          { hid: 'og:site_name', property: 'og:site_name', content: this.post.fields.title + ' | ステプラ' },
+          { hid: 'og:type', property: 'og:type', content: 'website' },
+          { hid: 'og:url', property: 'og:url', content: 'https://izm51.com/posts/' + this.post.fields.slug },
+          { hid: 'og:title', property: 'og:title', content: this.post.fields.title },
+          { hid: 'og:description', property: 'og:description', content: this.post.fields.description },
+          { hid: 'og:image', property: 'og:image', content: this.post.fields.image.fields.file.url }
+        ]
+    }
+  },
+  mounted() {
+    console.log(this.post)
+  },
+  methods: {
+    formatDate(iso) {
+      const date = new Date(iso)
+      const yyyy = new String(date.getFullYear())
+      const mm = new String(date.getMonth() + 1).padStart(2, "0")
+      const dd = new String(date.getDate()).padStart(2, "0")
+      return `${yyyy}.${mm}.${dd}`
+    }
   }
-},
-mounted() {
-  console.log(this.post)
-},
-methods: {
-  formatDate(iso) {
-    const date = new Date(iso)
-    const yyyy = new String(date.getFullYear())
-    const mm = new String(date.getMonth() + 1).padStart(2, "0")
-    const dd = new String(date.getDate()).padStart(2, "0")
-    return `${yyyy}.${mm}.${dd}`
-  }
-}
 }
 </script>
 
@@ -159,6 +169,13 @@ article.article {
       color: #fff;
       font-weight: bold;
       font-size: 14px;
+
+    }
+
+    .post-category-wrapper{
+      a{
+        text-decoration: none;
+      }
     }
 
     .post-tags{
