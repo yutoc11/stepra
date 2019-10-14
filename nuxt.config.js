@@ -65,6 +65,18 @@ export default {
             }
           })
         })
+    },
+    routes() {
+      return client
+        .getEntries({ content_type: 'category' })
+        .then(entries => {
+          return entries.items.map(entry => {
+            return {
+              route: "/category/"+entry.fields.slug,
+              payload: entry
+            }
+          })
+        })
     }
   },
   env: {
