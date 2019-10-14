@@ -1,10 +1,15 @@
 <template lang="pug">
   section.section
-    posts-index
+    posts-index(
+      :posts="posts"
+      :linkTo="linkTo")
 </template>
 
 <script>
 import PostsIndex from '~/components/PostsIndex'
+
+import client from '~/plugins/contentful'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
 
@@ -12,6 +17,9 @@ export default {
   },
 
   computed:{
+    ...mapState(['posts']),
+    ...mapState(['categories']),
+    ...mapGetters(['linkTo'])
   },
 
   components: {

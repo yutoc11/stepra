@@ -9,15 +9,15 @@
 </template>
 
 <script>
-import client from '~/plugins/contentful'
-import { mapState, mapGetters } from 'vuex'
 
 export default {
 
+  props:{
+    posts: Object,
+    linkTo: String,
+  },
+
   computed:{
-    ...mapState(['posts']),
-    ...mapState(['categories']),
-    ...mapGetters(['linkTo'])
   },
 
   methods: {
