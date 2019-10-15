@@ -32,6 +32,7 @@ export default {
   plugins: [
     '~/plugins/contentful',
     '~/plugins/markdownit',
+    '~/plugins/components',
   ],
   /*
   ** Nuxt.js dev-modules

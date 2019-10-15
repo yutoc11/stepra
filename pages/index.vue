@@ -7,7 +7,7 @@
 
 <script>
 import PostsIndex from '~/components/PostsIndex'
-
+//import Header from '~/components/Header'
 import client from '~/plugins/contentful'
 import { mapState, mapGetters } from 'vuex'
 

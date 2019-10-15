@@ -1,5 +1,10 @@
 <template lang="pug">
-  nuxt/
+  .app
+    stepra-header
+
+    nuxt/
+
+    stepra-footer
 </template>
 
 <style>
