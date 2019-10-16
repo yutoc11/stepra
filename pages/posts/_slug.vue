@@ -77,14 +77,15 @@ article.article {
   .content-wrapper {
     max-width: 620px;
     margin: 0 auto;
-    padding:50px 0;
+    padding:12px 12px 50px;
     .thumb{
-      margin: 18px auto;
+      margin: 0 auto;
       width: 100%;
       img{
         width:100%;
       }
     }
+
     h2, h3 {
       margin: 16px 0;
     }
@@ -168,7 +169,7 @@ article.article {
     .post-category{
       text-align: center;
       padding: 4px;
-      margin: 0 auto;
+      margin: 12px auto 0;
       background-color: #99E1D7;
       border-radius: 5px;
       color: #fff;
@@ -208,6 +209,17 @@ article.article {
     }
     .tag-list:hover{
       border: 1px solid #A7AAAA;
+    }
+
+    @media screen and (max-width: 480px) {
+      h1.post-title {
+        font-size: 24px;
+      }
+
+      .post-description{
+        line-height: 27px;
+        font-size: 16px;
+      }
     }
   }
 }
