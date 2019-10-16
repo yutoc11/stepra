@@ -10,10 +10,7 @@
 
 export default {
 
-  props:{
-    post: Object,
-    linkTo: String,
-  },
+  props:['post','linkTo'],
 
   computed:{
   },

@@ -12,10 +12,7 @@
 
 export default {
 
-  props:{
-    posts: Object,
-    linkTo: String,
-  },
+  props:['posts','linkTo'],
 
   computed:{
   },
@@ -27,12 +24,11 @@ export default {
 
 <style lang="scss">
 .posts-index {
-  padding: 10px;
+  padding: 6px;
   background: #F7F9F9;
   .posts {
     max-width: 900px;
     margin: 0 auto;
-    padding: 10px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -40,6 +36,9 @@ export default {
       width: calc(100% / 2 - 20px);
       @media (min-width: (768px)) {
         width: calc(100% / 3 - 20px);
+      }
+      @media (max-width: (480px)) {
+        width: calc(100% - 6px);
       }
       border-radius: 3px;
       margin: 10px;
@@ -67,15 +66,25 @@ export default {
           width: fit-content;
           font-size: 18px;
         }
-        p{
-          color: #888C8B;
-          font-size: 12px;
-        }
       }
     }
     a.post:hover,img:hover{
 
     }
   }
+
+  @media screen and (max-width: 480px) {
+    .posts{
+      a.post {
+        .post-text {
+          h3 {
+            margin:16px 16px 8px;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+
 }
 </style>

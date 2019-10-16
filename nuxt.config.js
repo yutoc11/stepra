@@ -56,28 +56,23 @@ export default {
   ],
   generate: {
     routes() {
-      return client
-        .getEntries({ content_type: 'post' })
-        .then(entries => {
-          return entries.items.map(entry => {
-            return {
-              route: "/posts/"+entry.fields.slug,
-              payload: entry
-            }
-          })
+      return Promise.all([
+        client.getEntries({
+          content_type: 'post'
+        }),
+        client.getEntries({        							// 追記
+          content_type: 'category'
         })
-    },
-    routes() {
-      return client
-        .getEntries({ content_type: 'category' })
-        .then(entries => {
-          return entries.items.map(entry => {
-            return {
-              route: "/category/"+entry.fields.slug,
-              payload: entry
-            }
+      ]).then(([posts, category]) => {        // 追記
+        return [
+          ...posts.items.map((post) => {
+            return { route: `posts/${post.fields.slug}`, payload: post }
+          }),
+          ...categories.items.map((category) => {        // 追記
+            return { route: `category/${category.fields.slug}`, payload: category }
           })
-        })
+        ]
+      })
     }
   },
   env: {

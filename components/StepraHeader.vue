@@ -23,14 +23,14 @@
 
     max-width: 940px;
     margin: 0 auto;
-    padding: 18px 9px;
+    padding: 12px 5px 6px 5px;
     background: #fff;
     display: flex;
     justify-content: space-between;
 
 
     img{
-      max-width: 200px
+      max-width: 220px;
     }
   }
   .menu {
@@ -42,11 +42,18 @@
       display: inline-block;
       padding: 5px;
     }
+  }
 
-    @media screen and (max-width: 480px) {
+  @media screen and (max-width: 480px) {
 
-
+    .header{
+      padding: 12px 5px 6px 0px;
     }
+
+    img{
+      width: 160px;
+    }
+
   }
 }
 
