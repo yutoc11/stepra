@@ -68,7 +68,7 @@ export default {
           ...posts.items.map((post) => {
             return { route: `posts/${post.fields.slug}`, payload: post }
           }),
-          ...categories.items.map((category) => {        // 追記
+          ...category.items.map((category) => {        // 追記
             return { route: `category/${category.fields.slug}`, payload: category }
           })
         ]
