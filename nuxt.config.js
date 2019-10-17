@@ -63,13 +63,13 @@ export default {
         client.getEntries({        							// 追記
           content_type: 'category'
         })
-      ]).then(([posts, category]) => {        // 追記
+      ]).then(([posts, categories]) => {        // 追記
         return [
           ...posts.items.map((post) => {
             return { route: `posts/${post.fields.slug}`, payload: post }
           }),
-          ...category.items.map((category) => {        // 追記
-            return { route: `category/${category.fields.slug}`, payload: category }
+          ...categories.items.map((category) => {        // 追記
+            return { route: `categories/${category.fields.slug}`, payload: category }
           })
         ]
       })

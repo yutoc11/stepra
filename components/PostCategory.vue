@@ -2,7 +2,7 @@
   .post-category-wrapper(
     v-if="post.fields.category != undefined"
   )
-    nuxt-link(:to="linkTo('category', post.fields.category)")
+    nuxt-link(:to="linkTo('categories', post.fields.category)")
       .post-category {{ post.fields.category.fields.name }}
 </template>
 
