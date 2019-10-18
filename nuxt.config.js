@@ -25,7 +25,8 @@ export default {
   ** Global CSS
   */
   css: [
-    'font-awesome/css/font-awesome.min.css'
+    'font-awesome/css/font-awesome.min.css',
+    '~/assets/css/buefy.scss',
   ],
   /*
   ** Plugins to load before mounting the App
@@ -53,6 +54,10 @@ export default {
     '@nuxtjs/markdownit',
     ['@nuxtjs/google-analytics', {
       id: 'UA-149861330-1'
+    }],
+    ['nuxt-buefy', {
+      css: false,
+      // materialDesignIcons: false
     }],
   ],
   generate: {

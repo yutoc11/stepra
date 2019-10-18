@@ -4,6 +4,13 @@
       h1
         nuxt-link(to="/")
           img(src="~/assets/images/stepra_logo.png")
+      b-field.search-wrapper
+        b-input.search-input(
+          placeholder="記事を検索"
+          type="search"
+          icon="magnify"
+          rounded
+          )
       //-ul.menu
         li メニュー
 </template>
@@ -44,6 +51,13 @@
     }
   }
 
+  .search-wrapper{
+    margin: auto 0;
+    padding: 0 0 5px 0;
+    .search-input{
+    }
+  }
+
   @media screen and (max-width: 480px) {
 
     .header{
@@ -53,6 +67,11 @@
     img{
       width: 160px;
     }
+
+    .search-wrapper{
+      max-width: 150px;
+    }
+
 
   }
 }
