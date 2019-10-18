@@ -53,7 +53,7 @@
 
   .search-wrapper{
     margin: auto 0;
-    padding: 0 0 5px 0;
+    padding: 0 15px 5px 0;
     .search-input{
     }
   }
@@ -69,7 +69,7 @@
     }
 
     .search-wrapper{
-      max-width: 150px;
+      max-width: 175px;
     }
 
 
