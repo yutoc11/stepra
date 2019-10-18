@@ -74,8 +74,8 @@ export default {
           ...categories.items.map((category) => {        // 追記
             return { route: `categories/${category.fields.slug}`, payload: category }
           }),
-          ...categories.items.map((tag) => {        // 追記
-            return { route: `tags/${tags.fields.slug}`, payload: tags }
+          ...tags.items.map((tag) => {        // 追記
+            return { route: `tags/${tag.fields.slug}`, payload: tag }
           })
         ]
       })
