@@ -11,13 +11,18 @@
       p.post-created-at {{ formatDate(post.sys.createdAt) }}
       .post-description(v-html="$md.render(post.fields.description)")
       .post-content(v-html="$md.render(post.fields.content)")
-      ul.post-tags(v-if="post.fields.tags != undefined")
+      post-tag(
+        :post="post"
+        :linkTo="linkTo"
+        )
+      //-ul.post-tags(v-if="post.fields.tags != undefined")
         li.tag-list(v-for="tag in post.fields.tags") #
           | {{ tag.fields.name }}
 </template>
 
 <script>
 import PostCategory from '~/components/PostCategory'
+import PostTag from '~/components/PostTag'
 
 import { mapState, mapGetters } from 'vuex'
 
@@ -26,11 +31,13 @@ export default {
   computed:{
     ...mapState(['posts']),
     ...mapState(['categories']),
+    ...mapState(['tags']),
     ...mapGetters(['linkTo'])
   },
 
   components: {
     PostCategory,
+    PostTag,
   },
 
   async asyncData({ payload, store, params, error }) {
@@ -164,51 +171,6 @@ article.article {
         position: relative;
         z-index: 10; // h2のpadding部分より前面に来るように
       }
-    }
-
-    .post-category{
-      text-align: center;
-      padding: 4px;
-      margin: 12px auto 0;
-      background-color: #99E1D7;
-      border-radius: 5px;
-      color: #fff;
-      font-weight: bold;
-      font-size: 14px;
-
-    }
-
-    .post-category-wrapper{
-      a{
-        text-decoration: none;
-      }
-    }
-
-    .post-tags{
-      padding: 0;
-    }
-
-    .post-tags{
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-    .tag-list{
-      font-size: 14px;
-      display: inline-flex;
-      padding: 4px 10px;
-      margin-right: 5px;
-      border: 1px solid #e6e6e6;
-      background: #fff;
-      border-radius: 4px;
-      cursor: pointer;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      max-width: 100%;
-      align-items: center;
-    }
-    .tag-list:hover{
-      border: 1px solid #A7AAAA;
     }
 
     @media screen and (max-width: 480px) {

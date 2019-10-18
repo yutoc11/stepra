@@ -7,7 +7,6 @@
 
 <script>
 import PostsIndex from '~/components/PostsIndex'
-//import Header from '~/components/Header'
 import client from '~/plugins/contentful'
 import { mapState, mapGetters } from 'vuex'
 
@@ -19,6 +18,7 @@ export default {
   computed:{
     ...mapState(['posts']),
     ...mapState(['categories']),
+    ...mapState(['tags']),
     ...mapGetters(['linkTo'])
   },
 

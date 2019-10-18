@@ -1,9 +1,10 @@
 <template lang="pug">
-  section.category
-    .category-name
-      h1 {{ category.fields.name }}
+  section.tag
+    .tag-name
+      h1 #
+       | {{ tag.fields.name }}
     posts-index(
-      :posts="relatedCategoryPosts"
+      :posts="relatedTagPosts"
       :linkTo="linkTo")
 </template>
 
@@ -19,16 +20,16 @@ export default {
 
   computed: {
     ...mapGetters(['linkTo']),
-    relatedCategoryPosts() {
-      return this.$store.getters.relatedCategoryPosts(this.category)
+    relatedTagPosts() {
+      return this.$store.getters.relatedTagPosts(this.tag)
     }
   },
 
   async asyncData({ payload, store, params, error }) {
-    const category = payload || await store.state.categories.find(cat => cat.fields.slug === params.slug)
+    const tag = payload || await store.state.tags.find(cat => cat.fields.slug === params.slug)
 
-    if (category) {
-      return { category }
+    if (tag) {
+      return { tag }
     } else {
       return error({ statusCode: 400 })
     }
@@ -38,22 +39,23 @@ export default {
 
 <style lang="scss">
 
-  .category{
+  .tag{
 
     background: #fff;
 
-    .category-name{
-      background: #99E1D7;
+    .tag-name{
+      background: #fff;
       border-radius: 3px;
-      color: #fff;
-      max-width: 400px;
-      padding: 9px 0;
+      border: 1px solid #e6e6e6;
+      color:#B0B3B2;
+      max-width: 300px;
+      padding: 4px 0;
       margin: 27px auto 27px;
       text-align: center;
     }
 
     h1{
-      font-size: 20px;
+      font-size: 14px;
     }
 
   }

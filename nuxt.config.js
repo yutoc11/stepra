@@ -62,14 +62,20 @@ export default {
         }),
         client.getEntries({        							// 追記
           content_type: 'category'
+        }),
+        client.getEntries({        							// 追記
+          content_type: 'tag'
         })
-      ]).then(([posts, categories]) => {        // 追記
+      ]).then(([posts, categories,tags]) => {        // 追記
         return [
           ...posts.items.map((post) => {
             return { route: `posts/${post.fields.slug}`, payload: post }
           }),
           ...categories.items.map((category) => {        // 追記
             return { route: `categories/${category.fields.slug}`, payload: category }
+          }),
+          ...categories.items.map((tag) => {        // 追記
+            return { route: `tags/${tags.fields.slug}`, payload: tags }
           })
         ]
       })
