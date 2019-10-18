@@ -1,5 +1,5 @@
 <template lang="pug">
-  section.tag
+  section.tags
     .tag-name
       h1 #
        | {{ tag.fields.name }}
@@ -39,7 +39,7 @@ export default {
 
 <style lang="scss">
 
-  .tag{
+  .tags{
 
     background: #fff;
 
@@ -48,7 +48,8 @@ export default {
       border-radius: 3px;
       border: 1px solid #e6e6e6;
       color:#B0B3B2;
-      max-width: 300px;
+      min-width: 300px;
+      max-width: 400px;
       padding: 4px 0;
       margin: 27px auto 27px;
       text-align: center;
