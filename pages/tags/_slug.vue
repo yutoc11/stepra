@@ -1,5 +1,5 @@
 <template lang="pug">
-  section.tags
+  section.tag-index
     .tag-name
       h1 #
        | {{ tag.fields.name }}
@@ -39,7 +39,7 @@ export default {
 
 <style lang="scss">
 
-  .tags{
+  .tag-index{
 
     background: #fff;
 
@@ -49,14 +49,20 @@ export default {
       border: 1px solid #e6e6e6;
       color:#B0B3B2;
       min-width: 300px;
-      max-width: 400px;
+      max-width: 450px;
       padding: 4px 0;
-      margin: 27px auto 27px;
+      margin: 27px auto;
       text-align: center;
     }
 
     h1{
       font-size: 14px;
+    }
+
+    @media screen and (max-width: 480px) {
+      .tag-name{
+        margin: 27px 9px;
+      }
     }
 
   }

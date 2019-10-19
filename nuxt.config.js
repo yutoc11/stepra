@@ -25,7 +25,6 @@ export default {
   ** Global CSS
   */
   css: [
-    'font-awesome/css/font-awesome.min.css',
     '~/assets/css/buefy.scss',
   ],
   /*

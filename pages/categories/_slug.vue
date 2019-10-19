@@ -46,7 +46,7 @@ export default {
       background: #99E1D7;
       border-radius: 3px;
       color: #fff;
-      max-width: 400px;
+      max-width: 500px;
       padding: 9px 0;
       margin: 27px auto 27px;
       text-align: center;

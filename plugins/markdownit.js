@@ -8,7 +8,7 @@ export default ({ app }, inject) => {
     typography: true,
   })
 
-  md.use(require("markdown-it-anchor"))             // 追加
+  // md.use(require("markdown-it-anchor"))             // 追加
   md.use(require("markdown-it-table-of-contents"))  // 追加
 
   const defaultRender = md.renderer.rules.link_open || function (tokens, idx, options, env, self) {
