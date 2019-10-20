@@ -4,15 +4,6 @@
       h1
         nuxt-link(to="/")
           img(src="~/assets/images/stepra_logo.png")
-      //-b-field.search-wrapper
-        b-input.search-input(
-          placeholder="記事を検索"
-          type="search"
-          icon="magnify"
-          rounded
-          )
-      //-ul.menu
-        li メニュー
 </template>
 
 <style lang="scss">

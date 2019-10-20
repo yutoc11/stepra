@@ -1,16 +1,6 @@
 <template lang="pug">
   section
-
-    category-menu(
-      :categories="categories"
-      :linkTo="linkTo")
-
-    question-attention
-
-    .section
-      posts-index(
-        :posts="posts"
-        :linkTo="linkTo")
+    p 「今、どうするべき？」がわかる、プログラミング教育診断はこちらから
 </template>
 
 <script>
@@ -19,7 +9,6 @@ import client from '~/plugins/contentful'
 import { mapState, mapGetters } from 'vuex'
 
 export default {
-  layout: 'home',
 
   head: {
   },
@@ -46,13 +35,4 @@ export default {
 </script>
 
 <style lang="scss">
-section{
-  margin-top:0;
-  padding-top:0;
-  background: #fff;
-}
-
-
-
-
 </style>
