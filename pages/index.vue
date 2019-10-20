@@ -15,11 +15,16 @@ export default {
   head: {
   },
 
+  data () {
+    return {
+    };
+  },
+
   computed:{
     ...mapState(['posts']),
     ...mapState(['categories']),
     ...mapState(['tags']),
-    ...mapGetters(['linkTo'])
+    ...mapGetters(['linkTo']),
   },
 
   components: {
