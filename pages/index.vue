@@ -19,7 +19,7 @@ import client from '~/plugins/contentful'
 import { mapState, mapGetters } from 'vuex'
 
 export default {
-  layout: 'home',
+  //layout: 'home',
 
   head: {
   },

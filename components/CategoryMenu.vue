@@ -3,8 +3,8 @@
     .category-menu
       nuxt-link.category-menu-item(
         :to="linkTo('categories', category)"
-        v-for="(category, index) in categories"
-        key="index") {{category.fields.name}}
+        v-for="(category, sort) in categories"
+        key="sort") {{category.fields.name}}
 </template>
 
 <script>
