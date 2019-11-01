@@ -21,20 +21,20 @@
         .question-wrapper(v-else-if="questionsProgrammingKnowledge.length >= questionNumber")
           p.question-progress {{questionNumber}}
             | /
-            | {{questionsProgrammingKnowledge.length}}
-          p.question-content {{question}}
+            | {{questions.length}}
+          p.question-content {{questionContents[questionNumber-1]}}
 
           //-.fuwafuwa_1.btn-circle(@click="shuzoClick" v-bind:class='{shuzoClass:isActiveType01}') しゅうぞう
           .choices-wrapper
             .choices
               .fuwafuwa_1.btn-circle(@click="choice01Click" v-bind:class='{choice01Class:isActiveChoice01}')
-                .choice-content しゅうぞう修造しゅうぞうしゅうぞう修造しゅうぞう
+                .choice-content {{ choice01Content[questionNumber-1] }}
               .fuwafuwa_2.btn-circle(@click="choice02Click" v-bind:class='{choice02Class:isActiveChoice02}')
-                .choice-content しゅうぞう修造しゅうぞうしゅうぞう修造しゅうぞう
+                .choice-content {{ choice02Content[questionNumber-1] }}
               .fuwafuwa_3.btn-circle(@click="choice03Click" v-bind:class='{choice03Class:isActiveChoice03}')
-                .choice-content 選択肢３
+                .choice-content {{ choice03Content[questionNumber-1] }}
               .fuwafuwa_4.btn-circle(@click="choice04Click" v-bind:class='{choice04Class:isActiveChoice04}')
-                .choice-content 選択肢４
+                .choice-content {{ choice04Content[questionNumber-1] }}
 
           .btn-pre-wrapper
             .section__btn--pre(v-if="questionNumber != 1" @click="preQuestion")
@@ -70,19 +70,19 @@
         .question-wrapper(v-else-if="questionsProgrammingKnowledge.length >= questionNumber")
           p.question-progress {{questionNumber}}
             | /
-            | {{questionsEducationalPolicy.length}}
-          p.question-content {{question}}
+            | {{questions.length}}
+          p.question-content {{questionContents[questionNumber-1]}}
 
           .choices-wrapper
             .choices
               .fuwafuwa_1.btn-circle(@click="choice01Click" v-bind:class='{choice01Class:isActiveChoice01}')
-                .choice-content しゅうぞう修造しゅうぞうしゅうぞう修造しゅうぞう
+                .choice-content {{ choice01Content[questionNumber-1] }}
               .fuwafuwa_2.btn-circle(@click="choice02Click" v-bind:class='{choice02Class:isActiveChoice02}')
-                .choice-content しゅうぞう修造しゅうぞうしゅうぞう修造しゅうぞう
+                .choice-content {{ choice02Content[questionNumber-1] }}
               .fuwafuwa_3.btn-circle(@click="choice03Click" v-bind:class='{choice03Class:isActiveChoice03}')
-                .choice-content 選択肢３
+                .choice-content {{ choice03Content[questionNumber-1] }}
               .fuwafuwa_4.btn-circle(@click="choice04Click" v-bind:class='{choice04Class:isActiveChoice04}')
-                .choice-content 選択肢４
+                .choice-content {{ choice04Content[questionNumber-1] }}
 
           .btn-pre-wrapper
             .section__btn--pre(v-if="questionNumber != 1" @click="preQuestion")
@@ -132,7 +132,12 @@ export default {
        result: false,
        questionTheme: 'childQuestion',
        questions:[],
+       questionContents: [],
        choice:0,
+       choice01Content : [],
+       choice02Content : [],
+       choice03Content : [],
+       choice04Content : [],
        isActiveChoice01 : false,
        isActiveChoice02 : false,
        isActiveChoice03 : false,
@@ -168,10 +173,24 @@ export default {
 
   methods: {
 
+    setQuestions(){
+      for(var i = 0 ; i < this.questions.length ; i++){
+
+        //問題をセットする
+        this.questionContents[i] = this.questions[i].q_description;
+
+        //選択肢ををセットする
+        this.choice01Content[i] = this.questions[i].q_choice_1;
+        this.choice02Content[i] = this.questions[i].q_choice_2;
+        this.choice03Content[i] = this.questions[i].q_choice_3;
+        this.choice04Content[i] = this.questions[i].q_choice_4;
+      }
+    },
+
     startQuestion(){
       this.onGoing = true;
       this.questionNumber = 1;
-      const number = this.questionNumber -1
+
       switch(this.questionTheme){
         case 'childQuestion':
           this.questions = this.questionsProgrammingKnowledge;
@@ -186,42 +205,27 @@ export default {
           this.isActiveResult = false;
           break;
       }
-      this.question = this.questions[number].q_description;
-      console.log(this.questions)
-
-      console.log('スタートしたよ')
-      //console.log(this.questionsProgrammingKnowledge[number].q_description)
-      //console.log(this.questionsProgrammingKnowledge.length)
+      this.setQuestions();
     },
 
     nextQuestion(){
       if(this.questions.length > this.questionNumber){
         this.questionNumber += 1;
-        const number = this.questionNumber -1
-        this.question = this.questions[number].q_description
         this.choice = 0;
         this.isActiveChoice01 = false;
         this.isActiveChoice02 = false;
         this.isActiveChoice03 = false;
         this.isActiveChoice04 = false;
-        console.log('次の質問へ')
-        console.log(this.questionNumber)
-        console.log(this.questions[number].q_description)
       }
     },
 
     preQuestion(){
       this.questionNumber -= 1;
-      const number = this.questionNumber -1
-      this.question = this.questions[number].q_description
       this.choice = 0;
       this.isActiveChoice01 = false;
       this.isActiveChoice02 = false;
       this.isActiveChoice03 = false;
       this.isActiveChoice04 = false;
-      console.log('前の質問へ')
-      console.log(this.questionNumber)
-      console.log(this.questionsProgrammingKnowledge[number].q_description)
     },
 
     preQuestionTheme(){
@@ -229,9 +233,11 @@ export default {
       this.isActiveThemeChild = true;
       this.isActiveThemeEdu =  false;
       this.isActiveResult = false;
-      this.questionNumber = questionsProgrammingKnowledge.length;
-      const number = this.questionNumber -1
-      this.question = this.questions[number].q_description
+
+      this.questions = this.questionsProgrammingKnowledge;
+      this.questionNumber = this.questions.length;
+      this.setQuestions();
+
       this.choice = 0;
       this.isActiveChoice01 = false;
       this.isActiveChoice02 = false;
@@ -256,7 +262,6 @@ export default {
 
     changeQuestionTheme(){
       this.questionNumber = 0;
-      this.question = ''
       this.questionTheme = 'eduQuestion'
       this.isActiveThemeChild = false;
       this.isActiveThemeEdu =  true;
@@ -588,7 +593,7 @@ li.navSelectedResult{
   background: #fff;
   box-shadow: 0 0 5px rgba(0,0,0,0.4);
   cursor: pointer;
-  top: 150vw;
+  top: 50vh;
 }
 
 .section__btn--pre:hover,
@@ -634,6 +639,7 @@ li.navSelectedResult{
   opacity: 0.8;
 }
 
+//ここからスマホ
 @media screen and (max-width: 480px) {
 
   .q-title{
@@ -699,6 +705,7 @@ li.navSelectedResult{
     width: 50px;
     height: 50px;
     line-height:50px;
+    top: 150vw;
   }
 
   .section__btn--pre:hover,
