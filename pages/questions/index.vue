@@ -20,7 +20,7 @@
 
         .question-wrapper(v-else-if="questions.length >= questionNumber")
           p.question-progress {{questionNumber}}
-            | /
+            |  /
             | {{questions.length}}
           p.question-content {{questionContents[questionNumber-1]}}
 
@@ -68,8 +68,8 @@
                 )
 
         .question-wrapper(v-else-if="questions.length >= questionNumber")
-          p.question-progress {{questionNumber}} 
-            | /
+          p.question-progress {{questionNumber}}
+            |  /
             | {{questions.length}}
           p.question-content {{questionContents[questionNumber-1]}}
 
@@ -653,12 +653,14 @@ li.navSelectedResult{
   }
 
   .question-progress{
-    margin-bottom: 0;
-    font-size: 0.8rem;
+    margin: 4px 0;
+    font-size: 0.7rem;
   }
 
   .question-content{
     font-size: 0.8rem;
+    min-height: 40px;
+    margin-bottom: 4px;
   }
 
   .choices{
