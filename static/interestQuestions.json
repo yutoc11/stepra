@@ -1,0 +1,10 @@
+[
+{"q_choice01_point":-10,"q_choice02_point":-2,"q_choice03_point":3,"q_choice04_point":5,"q_choice_1":"どれも好きでない","q_choice_2":"１つだけ好き","q_choice_3":"２つ以上好き！","q_choice_4":"全部好き！","q_description":"パズル・レゴ・積み木・プラモデルが好きである","q_number":1,"q_type":"Interest"},
+{"q_choice01_point":-3,"q_choice02_point":0,"q_choice03_point":2,"q_choice04_point":5,"q_choice_1":"深くまではまだない","q_choice_2":"1つくらいはある","q_choice_3":"特定のモノ・コトなら","q_choice_4":"複数なことである","q_description":"１つのことを深く探求できた経験がある","q_number":2,"q_type":"Interest"},
+{"q_choice01_point":0,"q_choice02_point":1,"q_choice03_point":3,"q_choice04_point":5,"q_choice_1":"いいえ","q_choice_2":"どちらかといえばいいえ","q_choice_3":"どちらかといえばはい","q_choice_4":"はい","q_description":"おうちの方が答えられないような質問をすることがある","q_number":3,"q_type":"Interest"},
+{"q_choice01_point":-7,"q_choice02_point":-2,"q_choice03_point":2,"q_choice04_point":5,"q_choice_1":"いいえ","q_choice_2":"どちらかといえばいいえ","q_choice_3":"どちらかといえばはい","q_choice_4":"はい","q_description":"好奇心旺盛である","q_number":4,"q_type":"Interest"},
+{"q_choice01_point":-10,"q_choice02_point":-5,"q_choice03_point":3,"q_choice04_point":5,"q_choice_1":"いいえ","q_choice_2":"どちらかといえばいいえ","q_choice_3":"どちらかといえばはい","q_choice_4":"はい","q_description":"ロボットやスマホなど、テクノロジー系のモノが好きである","q_number":5,"q_type":"Interest"},
+{"q_choice01_point":0,"q_choice02_point":1,"q_choice03_point":3,"q_choice04_point":5,"q_choice_1":"いいえ","q_choice_2":"どちらかといえばいいえ","q_choice_3":"どちらかといえばはい","q_choice_4":"はい","q_description":"小さい頃、子守りに疲れ果てるくらいに遊びに夢中になったことがある","q_number":6,"q_type":"Interest"},
+{"q_choice01_point":-5,"q_choice02_point":-2,"q_choice03_point":2,"q_choice04_point":5,"q_choice_1":"いいえ","q_choice_2":"どちらかといえばいいえ","q_choice_3":"どちらかといえばはい","q_choice_4":"はい","q_description":"小さい頃、スマホの操作をすぐに覚えていた","q_number":7,"q_type":"Interest"},
+{"q_choice01_point":-5,"q_choice02_point":-2,"q_choice03_point":2,"q_choice04_point":5,"q_choice_1":"いいえ","q_choice_2":"どちらかといえばいいえ","q_choice_3":"どちらかといえばはい","q_choice_4":"はい","q_description":"勉強が好きである","q_number":8,"q_type":"Interest"}
+]

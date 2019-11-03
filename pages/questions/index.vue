@@ -6,19 +6,19 @@
     .q-status-wrapper
       nav.nav
         ol.nav-list
-          li.nav-childQuestion(v-bind:class='{navSelectedThemeChild:isActiveThemeChild}') お子さま<br>について
-          li.nav-eduQuestion(v-bind:class='{navSelectedThemeEdu:isActiveThemeEdu}') 教育方針<br>について
+          li.nav-interest(v-bind:class='{navSelectedThemeInterest:isActiveThemeInterest}') 興味関心<br>について
+          li.nav-personality(v-bind:class='{navSelectedThemePersonality:isActiveThemePersonality}') 性格<br>について
           li.nav-result(v-bind:class='{navSelectedResult:isActiveResult}') 診断結果<br>の発表
 
     .q-wrapper
-      .q-content-wrapper(v-if="questionTheme=='childQuestion'")
+      .q-content-wrapper(v-if="questionTheme=='interest'")
         .q-start-wrapper(v-if="questionNumber==0")
           .question-message
-            p １つめのテーマは、<br>お子様についてのご質問<br>（1/2）
+            p １つめのテーマは、<br>お子様のITへの興味関心を探るご質問<br>（1/2）
           .q-start-button-wrapper
             .q-start-button(@click="startQuestion") スタート
 
-        .question-wrapper(v-else-if="questionsProgrammingKnowledge.length >= questionNumber")
+        .question-wrapper(v-else-if="questions.length >= questionNumber")
           p.question-progress {{questionNumber}}
             | /
             | {{questions.length}}
@@ -43,7 +43,7 @@
                 size="is-large"
                 )
           .btn-next-wrapper(v-if="choice != 0")
-            .section__btn--next(v-if="questionsProgrammingKnowledge.length != questionNumber" @click="nextQuestion")
+            .section__btn--next(v-if="questions.length != questionNumber" @click="nextQuestion")
               b-icon(
                 icon="chevron-right"
                 size="is-large"
@@ -54,10 +54,10 @@
                 size="is-large"
                 )
 
-      .q-content-wrapper(v-else-if="questionTheme=='eduQuestion'")
+      .q-content-wrapper(v-else-if="questionTheme=='personalityQuestion'")
         .q-start-wrapper(v-if="questionNumber==0")
           .question-message
-            p 次のテーマは、<br>ご家庭の教育方針についてのご質問<br>（2/2）
+            p 次のテーマは、<br>お子さまの普段の性格についてのご質問<br>（2/2）
           .q-start-button-wrapper
             .q-start-button(@click="startQuestion") 続ける
           .btn-pre-wrapper
@@ -67,8 +67,8 @@
                 size="is-large"
                 )
 
-        .question-wrapper(v-else-if="questionsProgrammingKnowledge.length >= questionNumber")
-          p.question-progress {{questionNumber}}
+        .question-wrapper(v-else-if="questions.length >= questionNumber")
+          p.question-progress {{questionNumber}} 
             | /
             | {{questions.length}}
           p.question-content {{questionContents[questionNumber-1]}}
@@ -97,7 +97,7 @@
                 )
 
           .btn-next-wrapper(v-if="choice != 0")
-            .section__btn--next(v-if="questionsProgrammingKnowledge.length != questionNumber" @click="nextQuestion")
+            .section__btn--next(v-if="questions.length != questionNumber" @click="nextQuestion")
               b-icon(
                 icon="chevron-right"
                 size="is-large"
@@ -116,8 +116,8 @@ import PostsIndex from '~/components/PostsIndex'
 import client from '~/plugins/contentful'
 import { mapState, mapGetters } from 'vuex'
 
-import questionsProgrammingKnowledge from '~/static/questionsProgrammingKnowledge.json'
-import questionsEducationalPolicy from '~/static/questionsEducationalPolicy.json'
+import interestQuestions from '~/static/interestQuestions.json'
+import personalityQuestions from '~/static/personalityQuestions.json'
 
 export default {
 
@@ -130,7 +130,7 @@ export default {
        questionNumber: 0,
        question:'',
        result: false,
-       questionTheme: 'childQuestion',
+       questionTheme: 'interest',
        questions:[],
        questionContents: [],
        choice:0,
@@ -143,16 +143,16 @@ export default {
        isActiveChoice03 : false,
        isActiveChoice04 : false,
        isActiveChoice05 : false,
-       isActiveThemeChild : false,
-       isActiveThemeEdu : false,
+       isActiveThemeInterest : false,
+       isActiveThemePersonality : false,
        isActiveResult : false,
     };
   },
 
   asyncData ({ params }) {
     return {
-      questionsProgrammingKnowledge,
-      questionsEducationalPolicy,
+      interestQuestions,
+      personalityQuestions,
     }
   },
 
@@ -187,21 +187,30 @@ export default {
       }
     },
 
+    resetChoices(){
+      this.isActiveChoice01 = false;
+      this.isActiveChoice02 = false;
+      this.isActiveChoice03 = false;
+      this.isActiveChoice04 = false;
+      this.choice = 0;
+    },
+
     startQuestion(){
       this.onGoing = true;
       this.questionNumber = 1;
+      this.resetChoices();
 
       switch(this.questionTheme){
-        case 'childQuestion':
-          this.questions = this.questionsProgrammingKnowledge;
-          this.isActiveThemeChild = true;
-          this.isActiveThemeEdu =  false;
+        case 'interest':
+          this.questions = this.interestQuestions;
+          this.isActiveThemeInterest = true;
+          this.isActiveThemePersonality =  false;
           this.isActiveResult = false;
           break;
-        case 'eduQuestion':
-          this.questions = this.questionsEducationalPolicy;
-          this.isActiveThemeChild = false;
-          this.isActiveThemeEdu =  true;
+        case 'personalityQuestion':
+          this.questions = this.personalityQuestions;
+          this.isActiveThemeInterest = false;
+          this.isActiveThemePersonality =  true;
           this.isActiveResult = false;
           break;
       }
@@ -211,73 +220,52 @@ export default {
     nextQuestion(){
       if(this.questions.length > this.questionNumber){
         this.questionNumber += 1;
-        this.choice = 0;
-        this.isActiveChoice01 = false;
-        this.isActiveChoice02 = false;
-        this.isActiveChoice03 = false;
-        this.isActiveChoice04 = false;
+        this.resetChoices();
       }
     },
 
     preQuestion(){
       this.questionNumber -= 1;
-      this.choice = 0;
-      this.isActiveChoice01 = false;
-      this.isActiveChoice02 = false;
-      this.isActiveChoice03 = false;
-      this.isActiveChoice04 = false;
+      this.resetChoices();
     },
 
     preQuestionTheme(){
-      this.questionTheme = 'childQuestion'
-      this.isActiveThemeChild = true;
-      this.isActiveThemeEdu =  false;
+      this.questionTheme = 'interest'
+      this.isActiveThemeInterest = true;
+      this.isActiveThemePersonality =  false;
       this.isActiveResult = false;
 
-      this.questions = this.questionsProgrammingKnowledge;
+      this.questions = this.interestQuestions;
       this.questionNumber = this.questions.length;
       this.setQuestions();
 
-      this.choice = 0;
-      this.isActiveChoice01 = false;
-      this.isActiveChoice02 = false;
-      this.isActiveChoice03 = false;
-      this.isActiveChoice04 = false;
+      this.resetChoices();
     },
 
+    //-今は使っていない
     quitQuestion(){
       this.questionNumber = 0;
       this.question = ''
-      this.isActiveThemeChild = false;
-      this.isActiveThemeEdu =  false;
+      this.isActiveThemeInterest = false;
+      this.isActiveThemePersonality =  false;
       this.isActiveResult = false;
       this.onGoing = true;
-      this.isActiveChoice01 = false;
-      this.isActiveChoice02 = false;
-      this.isActiveChoice03 = false;
-      this.isActiveChoice04 = false;
-      console.log('やめる')
-      console.log(this.questionNumber)
+      this.resetChoices();
     },
 
     changeQuestionTheme(){
       this.questionNumber = 0;
-      this.questionTheme = 'eduQuestion'
-      this.isActiveThemeChild = false;
-      this.isActiveThemeEdu =  true;
+      this.questionTheme = 'personalityQuestion'
+      this.isActiveThemeInterest = false;
+      this.isActiveThemePersonality =  true;
       this.isActiveResult = false;
-      this.choice = 0;
-      this.isActiveChoice01 = false;
-      this.isActiveChoice02 = false;
-      this.isActiveChoice03 = false;
-      this.isActiveChoice04 = false;
+      this.resetChoices();
     },
 
     calcResult(){
-      this.choice = 0;
       this.questionNumber += 1;
-      this.isActiveThemeChild = false;
-      this.isActiveThemeEdu =  false;
+      this.isActiveThemeInterest = false;
+      this.isActiveThemePersonality =  false;
       this.isActiveResult = true;
       this.result = true;
       this.onGoing = false;
@@ -286,21 +274,14 @@ export default {
       this.$nextTick(() => {
         console.log('描写なう')
       });
-      this.isActiveChoice01 = false;
-      this.isActiveChoice02 = false;
-      this.isActiveChoice03 = false;
-      this.isActiveChoice04 = false;
+      this.resetChoices();
     },
 
     restartQuestion(){
       this.questionNumber = 0;
       this.result = false;
-      this.questionTheme = 'childQuestion'
-      this.choice = 0;
-      this.isActiveChoice01 = false;
-      this.isActiveChoice02 = false;
-      this.isActiveChoice03 = false;
-      this.isActiveChoice04 = false;
+      this.questionTheme = 'interest'
+      this.resetChoices();
     },
 
     choice01Click(){
@@ -403,22 +384,22 @@ li{
 
 }
 
-li.navSelectedThemeChild,
-li.navSelectedThemeEdu,
+li.navSelectedThemeInterest,
+li.navSelectedThemePersonality,
 li.navSelectedResult{
   color: #52B696;
   font-weight: bold;
 }
 
-.navSelectedThemeChild::after,
-.navSelectedThemeEdu::after,
+.navSelectedThemeInterest::after,
+.navSelectedThemePersonality::after,
 .navSelectedResult::after{
   background-color:#52B696!important;
   border: solid 1px #52B696!important;
 }
 
-.nav-childQuestion::after,
-.nav-eduQuestion::after,
+.nav-interest::after,
+.nav-personality::after,
 .nav-result::after{
   box-sizing: border-box;
   display: block;

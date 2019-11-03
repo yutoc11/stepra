@@ -1,0 +1,7 @@
+[
+{"q_choice01_point":-10,"q_choice02_point":-5,"q_choice03_point":5,"q_choice04_point":10,"q_choice_1":"いいえ","q_choice_2":"どちらかといえばいいえ","q_choice_3":"どちらかといえばはい","q_choice_4":"はい","q_description":"匂い、味、食べ物、天候、騒音などに敏感である","q_number":1,"q_type":"Personality"},
+{"q_choice01_point":-10,"q_choice02_point":-5,"q_choice03_point":5,"q_choice04_point":10,"q_choice_1":"いいえ","q_choice_2":"どちらかといえばいいえ","q_choice_3":"どちらかといえばはい","q_choice_4":"はい","q_description":"物静かである","q_number":2,"q_type":"Personality"},
+{"q_choice01_point":-10,"q_choice02_point":-5,"q_choice03_point":5,"q_choice04_point":10,"q_choice_1":"いいえ","q_choice_2":"どちらかといえばいいえ","q_choice_3":"どちらかといえばはい","q_choice_4":"はい","q_description":"たいていの人が気づかないような細かなことに気づく","q_number":3,"q_type":"Personality"},
+{"q_choice01_point":-10,"q_choice02_point":-5,"q_choice03_point":5,"q_choice04_point":10,"q_choice_1":"いいえ","q_choice_2":"どちらかといえばいいえ","q_choice_3":"どちらかといえばはい","q_choice_4":"はい","q_description":"ひとりでいる時間を楽しめる","q_number":4,"q_type":"Personality"},
+{"q_choice01_point":-10,"q_choice02_point":-5,"q_choice03_point":5,"q_choice04_point":10,"q_choice_1":"いいえ","q_choice_2":"どちらかといえばいいえ","q_choice_3":"どちらかといえばはい","q_choice_4":"はい","q_description":"考えてから話す傾向がある","q_number":5,"q_type":"Personality"}
+]
