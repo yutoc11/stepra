@@ -4,7 +4,9 @@ import client from '~/plugins/contentful'	// 追記
 export const state = () => ({
   posts: [],
   categories: [],
-  tags: []
+  tags: [],
+  //answersInterest: [],
+  //answersPersonality: [],
 })
 
 export const getters = {
@@ -53,12 +55,26 @@ export const mutations = {
   },
   setTags(state, payload) {
     state.tags = payload
-  }
-
+  },
+  // setAnswersInterest(state, payload) {
+  //   state.answersInterest = payload
+  // },
+  // setAnswersPersonality(state, payload) {
+  //   state.answersPersonality = payload
+  // },
 }
 
 // 追記
 export const actions = {
+
+  // setAnswersInterest ({ commit }, payload) {
+  //   commit('setAnswersInterest', payload)
+  // },
+  //
+  // setAnswersPersonality ({ commit }, payload) {
+  //   commit('setAnswersPersonality', payload)
+  // },
+
   async getPosts({ commit }) {
     await client.getEntries({
       content_type: 'post',

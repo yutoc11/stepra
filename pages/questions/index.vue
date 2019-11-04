@@ -1,5 +1,10 @@
 <template lang="pug">
   section
+    .result-wrapper
+      .result-mapping-child(ref="infoBox")
+        img(src="~/assets/images/mapping_child.png")
+      .dot(v-bind:style="resultPosition")
+    b-button(@click="calcImageSize") サイズ算出
     .q-title-wrapper
       .q-title-bg
       h2.q-title 「今、どうするべき？」がわかる、<br>プログラミング教育診断
@@ -107,6 +112,9 @@
     .q-result-wrapper(v-if="result")
       p 結果画面だよ！
       button(@click="restartQuestion") もう一度
+      .result-wrapper
+        .result-mapping-child(ref="infoBox")
+          img(src="~/assets/images/mapping_child.png")
 
 
 </template>
@@ -143,9 +151,17 @@ export default {
        isActiveChoice03 : false,
        isActiveChoice04 : false,
        isActiveChoice05 : false,
+       answersInterest : [],
+       answersPersonality : [],
+       answersInterestPoints : [],
+       answersPersonalityPoints : [],
        isActiveThemeInterest : false,
        isActiveThemePersonality : false,
        isActiveResult : false,
+       resultPosition : {
+         'top': 'calc(50% - 15px)',
+         'left': 'calc(50% - 15px)',
+         },
     };
   },
 
@@ -160,6 +176,8 @@ export default {
     ...mapState(['posts']),
     ...mapState(['categories']),
     ...mapState(['tags']),
+    //...mapState(['answersInterest']),
+    //...mapState(['answersPersonality']),
     ...mapGetters(['linkTo']),
   },
 
@@ -172,6 +190,9 @@ export default {
   },
 
   methods: {
+
+    //...mapActions(['answersInterest']),
+    //...mapActions(['answersPersonality']),
 
     setQuestions(){
       for(var i = 0 ; i < this.questions.length ; i++){
@@ -290,6 +311,27 @@ export default {
       this.isActiveChoice02 = false;
       this.isActiveChoice03 = false;
       this.isActiveChoice04 = false;
+      const number = this.questionNumber-1;
+      switch(this.questionTheme){
+        case 'interest':
+          this.answersInterest[number] = this.choice;
+          this.answersInterestPoints[number] = this.questions[number].q_choice01_point;
+          console.log(number);
+          console.log(this.questionTheme)
+          console.log(this.answersInterest[number]);
+          console.log(this.answersInterestPoints[number]);
+          console.log(this.answersInterestPoints);
+          break;
+        case 'personalityQuestion':
+          this.answersPersonality[number] = this.choice;
+          this.answersPersonalityPoints[number] = this.questions[number].q_choice01_point;
+          console.log(number);
+          console.log(this.questionTheme)
+          console.log(this.answersPersonality[number]);
+          console.log(this.answersPersonalityPoints[number]);
+          console.log(this.answersPersonalityPoints);
+          break;
+      }
     },
 
     choice02Click(){
@@ -298,6 +340,27 @@ export default {
       this.isActiveChoice02 = !this.isActiveChoice02;
       this.isActiveChoice03 = false;
       this.isActiveChoice04 = false;
+      const number = this.questionNumber-1;
+      switch(this.questionTheme){
+        case 'interest':
+          this.answersInterest[number] = this.choice;
+          this.answersInterestPoints[number] = this.questions[number].q_choice02_point;
+          console.log(number);
+          console.log(this.questionTheme)
+          console.log(this.answersInterest[number]);
+          console.log(this.answersInterestPoints[number]);
+          console.log(this.answersInterestPoints);
+          break;
+        case 'personalityQuestion':
+          this.answersPersonality[number] = this.choice;
+          this.answersPersonalityPoints[number] = this.questions[number].q_choice02_point;
+          console.log(number);
+          console.log(this.questionTheme)
+          console.log(this.answersPersonality[number]);
+          console.log(this.answersPersonalityPoints[number]);
+          console.log(this.answersPersonalityPoints);
+          break;
+      }
     },
     choice03Click(){
       this.choice = (this.choice != 3) ? 3 : 0 ;
@@ -305,6 +368,27 @@ export default {
       this.isActiveChoice02 = false;
       this.isActiveChoice03 = !this.isActiveChoice03;
       this.isActiveChoice04 = false;
+      const number = this.questionNumber-1;
+      switch(this.questionTheme){
+        case 'interest':
+          this.answersInterest[number] = this.choice;
+          this.answersInterestPoints[number] = this.questions[number].q_choice03_point;
+          console.log(number);
+          console.log(this.questionTheme)
+          console.log(this.answersInterest[number]);
+          console.log(this.answersInterestPoints[number]);
+          console.log(this.answersInterestPoints);
+          break;
+        case 'personalityQuestion':
+          this.answersPersonality[number] = this.choice;
+          this.answersPersonalityPoints[number] = this.questions[number].q_choice03_point;
+          console.log(number);
+          console.log(this.questionTheme)
+          console.log(this.answersPersonality[number]);
+          console.log(this.answersPersonalityPoints[number]);
+          console.log(this.answersPersonalityPoints);
+          break;
+      }
     },
     choice04Click(){
       this.choice = (this.choice != 4) ? 4 : 0 ;
@@ -312,6 +396,36 @@ export default {
       this.isActiveChoice02 = false;
       this.isActiveChoice03 = false;
       this.isActiveChoice04 = !this.isActiveChoice04;
+      const number = this.questionNumber-1;
+      switch(this.questionTheme){
+        case 'interest':
+          this.answersInterest[number] = this.choice;
+          this.answersInterestPoints[number] = this.questions[number].q_choice04_point;
+          console.log(number);
+          console.log(this.questionTheme)
+          console.log(this.answersInterest[number]);
+          console.log(this.answersInterestPoints[number]);
+          console.log(this.answersInterestPoints);
+          break;
+        case 'personalityQuestion':
+          this.answersPersonality[number] = this.choice;
+          this.answersPersonalityPoints[number] = this.questions[number].q_choice04_point;
+          console.log(number);
+          console.log(this.questionTheme)
+          console.log(this.answersPersonality[number]);
+          console.log(this.answersPersonalityPoints[number]);
+          console.log(this.answersPersonalityPoints);
+          break;
+      }
+    },
+
+    calcImageSize(){
+      let height = this.$refs.infoBox.clientHeight;
+      let width = this.$refs.infoBox.clientWidth;
+      this.resultPosition['top'] = '90%';
+      this.resultPosition['left'] = '90%';
+      console.log(height);
+      console.log(width);
     },
   }
 }
@@ -618,6 +732,17 @@ li.navSelectedResult{
 
 .section__btn--calc:hover{
   opacity: 0.8;
+}
+
+.result-wrapper{
+  position: relative;
+  .dot{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-image: linear-gradient(45deg, #709dff 0%, #91fdb7 100%);
+  }
 }
 
 //ここからスマホ
