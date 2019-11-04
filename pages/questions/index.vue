@@ -208,6 +208,46 @@ export default {
       }
     },
 
+    setAnswers(){
+      const number = this.questionNumber-1;
+      switch(this.questionTheme){
+        case 'interest':
+          this.answersInterest[number] = this.choice;
+          switch(this.choice){
+            case 1:
+              this.answersInterestPoints[number] = this.questions[number].q_choice01_point;
+              break;
+            case 2:
+              this.answersInterestPoints[number] = this.questions[number].q_choice02_point;
+              break;
+            case 3:
+              this.answersInterestPoints[number] = this.questions[number].q_choice03_point;
+              break;
+            case 4:
+              this.answersInterestPoints[number] = this.questions[number].q_choice03_point;
+              break;
+          }
+          break;
+        case 'personalityQuestion':
+          this.answersPersonality[number] = this.choice;
+          switch(this.choice){
+            case 1:
+              this.answersPersonalityPoints[number] = this.questions[number].q_choice01_point;
+              break;
+            case 2:
+              this.answersPersonalityPoints[number] = this.questions[number].q_choice02_point;
+              break;
+            case 3:
+              this.answersPersonalityPoints[number] = this.questions[number].q_choice03_point;
+              break;
+            case 4:
+              this.answersPersonalityPoints[number] = this.questions[number].q_choice04_point;
+              break;
+          }
+          break;
+      }
+    },
+
     resetChoices(){
       this.isActiveChoice01 = false;
       this.isActiveChoice02 = false;
@@ -216,9 +256,17 @@ export default {
       this.choice = 0;
     },
 
+    resetAnswers(){
+      this.answersInterest = [];
+      this.answersPersonality = [];
+      this.answersInterestPoints = [];
+      this.answersPersonalityPoints = [];
+    },
+
     startQuestion(){
       this.onGoing = true;
       this.questionNumber = 1;
+      this.resetChoices();
       this.resetChoices();
 
       switch(this.questionTheme){
@@ -272,6 +320,7 @@ export default {
       this.isActiveResult = false;
       this.onGoing = true;
       this.resetChoices();
+      this.resetAnswers();
     },
 
     changeQuestionTheme(){
@@ -290,6 +339,12 @@ export default {
       this.isActiveResult = true;
       this.result = true;
       this.onGoing = false;
+      let height = this.$refs.infoBox.clientHeight;
+      let width = this.$refs.infoBox.clientWidth;
+      let positionX = '90%';
+      let positionY = '90%';
+      this.resultPosition['top'] = positionX;
+      this.resultPosition['left'] = positionY;
       console.log(this.result)
       console.log('結果を算出中！')
       this.$nextTick(() => {
@@ -311,27 +366,7 @@ export default {
       this.isActiveChoice02 = false;
       this.isActiveChoice03 = false;
       this.isActiveChoice04 = false;
-      const number = this.questionNumber-1;
-      switch(this.questionTheme){
-        case 'interest':
-          this.answersInterest[number] = this.choice;
-          this.answersInterestPoints[number] = this.questions[number].q_choice01_point;
-          console.log(number);
-          console.log(this.questionTheme)
-          console.log(this.answersInterest[number]);
-          console.log(this.answersInterestPoints[number]);
-          console.log(this.answersInterestPoints);
-          break;
-        case 'personalityQuestion':
-          this.answersPersonality[number] = this.choice;
-          this.answersPersonalityPoints[number] = this.questions[number].q_choice01_point;
-          console.log(number);
-          console.log(this.questionTheme)
-          console.log(this.answersPersonality[number]);
-          console.log(this.answersPersonalityPoints[number]);
-          console.log(this.answersPersonalityPoints);
-          break;
-      }
+      this.setAnswers();
     },
 
     choice02Click(){
@@ -340,27 +375,7 @@ export default {
       this.isActiveChoice02 = !this.isActiveChoice02;
       this.isActiveChoice03 = false;
       this.isActiveChoice04 = false;
-      const number = this.questionNumber-1;
-      switch(this.questionTheme){
-        case 'interest':
-          this.answersInterest[number] = this.choice;
-          this.answersInterestPoints[number] = this.questions[number].q_choice02_point;
-          console.log(number);
-          console.log(this.questionTheme)
-          console.log(this.answersInterest[number]);
-          console.log(this.answersInterestPoints[number]);
-          console.log(this.answersInterestPoints);
-          break;
-        case 'personalityQuestion':
-          this.answersPersonality[number] = this.choice;
-          this.answersPersonalityPoints[number] = this.questions[number].q_choice02_point;
-          console.log(number);
-          console.log(this.questionTheme)
-          console.log(this.answersPersonality[number]);
-          console.log(this.answersPersonalityPoints[number]);
-          console.log(this.answersPersonalityPoints);
-          break;
-      }
+      this.setAnswers();
     },
     choice03Click(){
       this.choice = (this.choice != 3) ? 3 : 0 ;
@@ -368,27 +383,7 @@ export default {
       this.isActiveChoice02 = false;
       this.isActiveChoice03 = !this.isActiveChoice03;
       this.isActiveChoice04 = false;
-      const number = this.questionNumber-1;
-      switch(this.questionTheme){
-        case 'interest':
-          this.answersInterest[number] = this.choice;
-          this.answersInterestPoints[number] = this.questions[number].q_choice03_point;
-          console.log(number);
-          console.log(this.questionTheme)
-          console.log(this.answersInterest[number]);
-          console.log(this.answersInterestPoints[number]);
-          console.log(this.answersInterestPoints);
-          break;
-        case 'personalityQuestion':
-          this.answersPersonality[number] = this.choice;
-          this.answersPersonalityPoints[number] = this.questions[number].q_choice03_point;
-          console.log(number);
-          console.log(this.questionTheme)
-          console.log(this.answersPersonality[number]);
-          console.log(this.answersPersonalityPoints[number]);
-          console.log(this.answersPersonalityPoints);
-          break;
-      }
+      this.setAnswers();
     },
     choice04Click(){
       this.choice = (this.choice != 4) ? 4 : 0 ;
@@ -396,27 +391,7 @@ export default {
       this.isActiveChoice02 = false;
       this.isActiveChoice03 = false;
       this.isActiveChoice04 = !this.isActiveChoice04;
-      const number = this.questionNumber-1;
-      switch(this.questionTheme){
-        case 'interest':
-          this.answersInterest[number] = this.choice;
-          this.answersInterestPoints[number] = this.questions[number].q_choice04_point;
-          console.log(number);
-          console.log(this.questionTheme)
-          console.log(this.answersInterest[number]);
-          console.log(this.answersInterestPoints[number]);
-          console.log(this.answersInterestPoints);
-          break;
-        case 'personalityQuestion':
-          this.answersPersonality[number] = this.choice;
-          this.answersPersonalityPoints[number] = this.questions[number].q_choice04_point;
-          console.log(number);
-          console.log(this.questionTheme)
-          console.log(this.answersPersonality[number]);
-          console.log(this.answersPersonalityPoints[number]);
-          console.log(this.answersPersonalityPoints);
-          break;
-      }
+      this.setAnswers();
     },
 
     calcImageSize(){
