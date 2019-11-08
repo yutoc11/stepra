@@ -1,10 +1,5 @@
 <template lang="pug">
   section
-    .result-wrapper
-      .result-mapping-child(ref="infoBox")
-        img(src="~/assets/images/mapping_child.png")
-      .dot(v-bind:style="resultPosition")
-    b-button(@click="calcImageSize") サイズ算出
     .q-title-wrapper
       .q-title-bg
       h2.q-title 「今、どうするべき？」がわかる、<br>プログラミング教育診断
@@ -110,11 +105,12 @@
             .section__btn--calc(v-else @click="calcResult") 診断する
 
     .q-result-wrapper(v-if="result")
-      p 結果画面だよ！
-      button(@click="restartQuestion") もう一度
+      h3.result-title お子様のタイプは・・・
       .result-wrapper
         .result-mapping-child(ref="infoBox")
           img(src="~/assets/images/mapping_child.png")
+        .dot(v-bind:style="resultPosition")
+      button(@click="restartQuestion") もう一度
 
 
 </template>
@@ -224,7 +220,7 @@ export default {
               this.answersInterestPoints[number] = this.questions[number].q_choice03_point;
               break;
             case 4:
-              this.answersInterestPoints[number] = this.questions[number].q_choice03_point;
+              this.answersInterestPoints[number] = this.questions[number].q_choice04_point;
               break;
           }
           break;
@@ -339,16 +335,31 @@ export default {
       this.isActiveResult = true;
       this.result = true;
       this.onGoing = false;
-      let height = this.$refs.infoBox.clientHeight;
-      let width = this.$refs.infoBox.clientWidth;
-      let positionX = '90%';
-      let positionY = '90%';
-      this.resultPosition['top'] = positionX;
-      this.resultPosition['left'] = positionY;
-      console.log(this.result)
-      console.log('結果を算出中！')
+
+      let arrayInterestPoints = this.answersInterestPoints;
+      let arrayPersonalityPoints = this.answersPersonalityPoints;
+      let sumInterestPoints = arrayInterestPoints.reduce((a,x) => a+=x,0);
+      let sumPersonalityPoints = arrayPersonalityPoints.reduce((a,x) => a+=x,0);
+      console.log('とりあえず回ってる');
+      console.log(sumInterestPoints);
+      console.log(sumPersonalityPoints);
+
+
+      console.log(this.result);
+      console.log('結果を算出中！');
       this.$nextTick(() => {
         console.log('描写なう')
+        let width = this.$refs.infoBox.clientWidth;
+        let height = this.$refs.infoBox.clientHeight;
+
+        //直書きだから早く直す -40 ~ 40 の幅を、0~80×幅に変えている
+        let moveXpercent = ( sumInterestPoints + 40 ) / 80 * 100;
+        let moveYpercent = ( sumPersonalityPoints + 60 ) / 120 * 100;
+
+        this.resultPosition['left'] = `calc(${moveXpercent}% - 15px)`;
+        this.resultPosition['top'] = `calc(${moveYpercent}% - 15px)`;
+        console.log(this.resultPosition['left']);
+        console.log(this.resultPosition['top']);
       });
       this.resetChoices();
     },
@@ -358,6 +369,8 @@ export default {
       this.result = false;
       this.questionTheme = 'interest'
       this.resetChoices();
+      this.isActiveResult = false;
+      this.result = false;
     },
 
     choice01Click(){
@@ -392,15 +405,6 @@ export default {
       this.isActiveChoice03 = false;
       this.isActiveChoice04 = !this.isActiveChoice04;
       this.setAnswers();
-    },
-
-    calcImageSize(){
-      let height = this.$refs.infoBox.clientHeight;
-      let width = this.$refs.infoBox.clientWidth;
-      this.resultPosition['top'] = '90%';
-      this.resultPosition['left'] = '90%';
-      console.log(height);
-      console.log(width);
     },
   }
 }
@@ -707,6 +711,11 @@ li.navSelectedResult{
 
 .section__btn--calc:hover{
   opacity: 0.8;
+}
+
+.result-title{
+  font-size: 1rem;
+  margin-bottom: 9px;
 }
 
 .result-wrapper{
