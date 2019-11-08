@@ -439,8 +439,9 @@ h2.q-title{
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url('~assets/images/pc.png');
-  background-repeat: no-repeat;
+  //background-image: url('~assets/images/pc.png');
+  //background-repeat: no-repeat;
+  background-color: #52B696;
   background-size:  100%;
   //opacity: 0.4;
   z-index: 10;
