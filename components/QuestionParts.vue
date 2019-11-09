@@ -13,7 +13,6 @@
         | {{questions.length}}
       p.question-content {{questionContents[questionNumber-1]}}
 
-      //-.fuwafuwa_1.btn-circle(@click="shuzoClick" v-bind:class='{shuzoClass:isActiveType01}') しゅうぞう
       .choices-wrapper
         .choices
           .fuwafuwa_1.btn-circle(@click="choice01Click" v-bind:class='{choice01Class:isActiveChoice01}')
@@ -96,9 +95,6 @@
 
 <script>
 
-import interestQuestions from '~/static/interestQuestions.json'
-import personalityQuestions from '~/static/personalityQuestions.json'
-
 export default {
 
   props:['interestQuestions','personalityQuestions'],
@@ -127,8 +123,6 @@ export default {
        answersPersonalityPoints : [],
     };
   },
-
-
 
   computed:{
   },
@@ -276,43 +270,6 @@ export default {
       this.resetChoices();
     },
 
-    calcResult(){
-      this.questionNumber += 1;
-      this.$parent.isActiveThemeInterest = false;
-      this.$parent.isActiveThemePersonality =  false;
-      this.$parent.isActiveResult = true;
-      this.$parent.result = true;
-      this.onGoing = false;
-      this.resetChoices();
-
-      let arrayInterestPoints = this.answersInterestPoints;
-      let arrayPersonalityPoints = this.answersPersonalityPoints;
-      let sumInterestPoints = arrayInterestPoints.reduce((a,x) => a+=x,0);
-      let sumPersonalityPoints = arrayPersonalityPoints.reduce((a,x) => a+=x,0);
-      console.log('とりあえず回ってる');
-      console.log(sumInterestPoints);
-      console.log(sumPersonalityPoints);
-
-
-      console.log(this.$parent.result);
-      console.log('結果を算出中！');
-      this.$nextTick(() => {
-        console.log('描写なう')
-        //let width = this.$refs.infoBox.clientWidth;
-        //let height = this.$refs.infoBox.clientHeight;
-
-        //直書きだから早く直す -40 ~ 40 の幅を、0~80×幅に変えている
-        let moveXpercent = ( sumInterestPoints + 40 ) / 80 * 100;
-        let moveYpercent = ( sumPersonalityPoints + 60 ) / 120 * 100;
-
-        this.$parent.resultPosition['left'] = `calc(${moveXpercent}% - 15px)`;
-        this.$parent.resultPosition['top'] = `calc(${moveYpercent}% - 15px)`;
-        console.log(this.$parent.resultPosition['left']);
-        console.log(this.$parent.resultPosition['top']);
-      });
-
-    },
-
     restartQuestion(){
       this.questionNumber = 0;
       this.result = false;
@@ -339,6 +296,7 @@ export default {
       this.isActiveChoice04 = false;
       this.setAnswers();
     },
+
     choice03Click(){
       this.choice = (this.choice != 3) ? 3 : 0 ;
       this.isActiveChoice01 = false;
@@ -347,6 +305,7 @@ export default {
       this.isActiveChoice04 = false;
       this.setAnswers();
     },
+
     choice04Click(){
       this.choice = (this.choice != 4) ? 4 : 0 ;
       this.isActiveChoice01 = false;
@@ -355,12 +314,307 @@ export default {
       this.isActiveChoice04 = !this.isActiveChoice04;
       this.setAnswers();
     },
+
+    calcResult(){
+      this.questionNumber += 1;
+      this.$parent.isActiveThemeInterest = false;
+      this.$parent.isActiveThemePersonality =  false;
+      this.$parent.isActiveResult = true;
+      this.$parent.result = true;
+      this.onGoing = false;
+      this.resetChoices();
+
+      let arrayInterestPoints = this.answersInterestPoints;
+      let arrayPersonalityPoints = this.answersPersonalityPoints;
+      let sumInterestPoints = arrayInterestPoints.reduce((a,x) => a+=x,0);
+      let sumPersonalityPoints = arrayPersonalityPoints.reduce((a,x) => a+=x,0);
+
+      this.$nextTick(() => {
+        //直書きだから早く直す -40 ~ 40 の幅を、0~80×幅、のように変えている
+        let moveXpercent = ( sumInterestPoints + 40 ) / 80 * 100;
+        let moveYpercent = ( sumPersonalityPoints + 60 ) / 120 * 100;
+
+        this.$parent.resultPosition['left'] = `calc(${moveXpercent}% - 15px)`;
+        this.$parent.resultPosition['top'] = `calc(${moveYpercent}% - 15px)`;
+      });
+    },
   }
 }
 </script>
 
 <style lang="scss">
+.q-wrapper{
+  width: 100%;
+  margin: 0 auto;
+  padding:18px 9px;
+  text-align: center;
+  color: #787C7B;
+  font-weight: 500;
+}
 
+
+.question-message{
+  padding:18px 9px;
+}
+
+.q-wrapper,q-result-wrapper{
+  //background-image: url('~assets/images/cafe.jpg') ;
+  background-repeat: no-repeat;
+  background-size:  100%;
+}
+
+.q-start-button-wrapper{
+
+  width: 140px;
+  margin: 0 auto;
+  text-align: center;
+
+  .q-start-button{
+    height: 140px;
+    width: 140px;
+    line-height: 140px;
+    text-align: center;
+    background-color: #52B696;
+    border: 2px solid #fff;
+    box-shadow: 0 0 3px #ccc;
+    border-radius: 70px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .q-start-button:hover{
+    opacity: 0.8;
+  }
+
+}
+
+.question-progress{
+  margin-bottom: 18px;
+}
+
+.question-content{
+  margin-bottom: 18px;
+}
+
+.question-wrapper{
+
+}
+
+.choices{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin: 0 auto;
+  padding: 9px;
+  width:70%;
+
+}
+
+.btn-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-image: linear-gradient(45deg, #709dff 0%, #91fdb7 100%);
+  transition: .4s;
+}
+
+.choice-content{
+  padding: 0 9px;
+}
+
+.btn-circle.choice01Class,
+.btn-circle.choice02Class,
+.btn-circle.choice03Class,
+.btn-circle.choice04Class{
+  background-image: none;
+  background-color: #709dff;
+}
+
+.btn-circle:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.fuwafuwa_1 {
+  animation: fuwafuwa_1 2.5s infinite;
+}
+
+.fuwafuwa_2{
+  animation: fuwafuwa_2 4s infinite;
+}
+
+.fuwafuwa_3{
+  animation: fuwafuwa_3 5s infinite;
+}
+
+.fuwafuwa_4{
+  animation: fuwafuwa_4 3.5s infinite;
+}
+
+
+@keyframes fuwafuwa_1 {
+  0% { transform:translateX(0px); }
+  50% { transform:translateX(5px) translateY(5px); }
+  100% { transform:translateX(  0px); }
+}
+
+@keyframes fuwafuwa_2 {
+  0% { transform:translateY(0px); }
+  50% { transform:translateY(5px); }
+  100% { transform:translateY(  0px); }
+}
+
+@keyframes fuwafuwa_3 {
+  0% { transform:translateY(0px); }
+  50% { transform:translateY(5px) translateX(-5px); }
+  100% { transform:translateY(  0px); }
+}
+
+@keyframes fuwafuwa_4 {
+  0% { transform:translateY(0px); }
+  50% { transform:translateY(-2px) translateX(-5px); }
+  100% { transform:translateY(  0px); }
+}
+
+.v-enter{
+  opacity: 0;
+  transform: translateX(+100px);
+}
+
+.section__btn--pre,
+.section__btn--next{
+  position: fixed;
+  width: 75px;
+  height: 75px;
+  line-height:75px;
+  border: solid 3px white;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0,0,0,0.4);
+  cursor: pointer;
+  top: 50vh;
+}
+
+.section__btn--pre:hover,
+.section__btn--next:hover{
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+.section__btn--pre{
+  left: 50px;
+
+  .icon{
+    padding:30px 3px 0 0;
+  }
+}
+
+.section__btn--next{
+  right: 50px;
+
+  .icon{
+    padding:30px 0 0 3px;
+  }
+}
+
+.section__btn--calc{
+  position: fixed;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 140px;
+  width: 140px;
+  line-height: 140px;
+  text-align: center;
+  background-color: #52B696;
+  border: 2px solid #fff;
+  box-shadow: 0 0 3px #ccc;
+  border-radius: 70px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.section__btn--calc:hover{
+  opacity: 0.8;
+}
+
+//ここからスマホ
+@media screen and (max-width: 480px) {
+
+  .q-wrapper{
+    padding: 0 9px;
+  }
+
+  .question-progress{
+    margin: 4px 0;
+    font-size: 0.7rem;
+  }
+
+  .question-content{
+    font-size: 0.8rem;
+    min-height: 40px;
+    margin-bottom: 4px;
+  }
+
+  .choices{
+    padding: 0 9px;
+    width:100%;
+  }
+
+  .btn-circle {
+    font-weight: bold;
+    font-size: 0.75rem;
+    width: 40vw;
+    height: 40vw;
+    border-radius: 50%;
+    background-image: linear-gradient(45deg, #709dff 0%, #91fdb7 100%);
+    transition: .4s;
+    margin-bottom:9px;
+  }
+
+  .choice-content{
+    padding: 0 9px;
+    font-size: 4vw;
+  }
+
+  .section__btn--pre,
+  .section__btn--next{
+    width: 50px;
+    height: 50px;
+    line-height:50px;
+    top: 150vw;
+  }
+
+  .section__btn--pre:hover,
+  .section__btn--next:hover{
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  }
+
+  .section__btn--pre{
+    left: 5px;
+
+    .icon{
+      padding:8px 8px 0 0;
+    }
+  }
+
+  .section__btn--next{
+    right: 5px;
+
+    .icon{
+      padding:8px 0 0 0;
+    }
+  }
+
+}
 
 
 </style>
