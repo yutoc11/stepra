@@ -15,14 +15,19 @@
       :personalityQuestions = "personalityQuestions"
       )
 
-    .q-result-wrapper(v-if="result")
-      h3.result-title お子様のタイプは・・・
-      .result-wrapper
-        .result-mapping-child(ref="infoBox")
+    .q-result-wrapper
+      h3.result-title お子様の診断結果は・・・
+      .result-mapping-wrapper
+        .result-mapping-child
           img(src="~/assets/images/mapping_child.png")
         .dot(v-bind:style="resultPosition")
       .next-result-button おすすめのプログラミング教育との<br>向き合い方をみる
-      button(@click="restartQuestion") もう一度
+      .result-school
+      .result-interest
+        p お子様のITへの好奇心や、現時点での素養は、「」です。
+      .result-personality
+        p お子様の性格は、「」です。
+      b-button(@click="restartQuestion") もう一度
 </template>
 
 <script>
@@ -30,9 +35,10 @@ import PostsIndex from '~/components/PostsIndex'
 import QuestionParts from '~/components/QuestionParts'
 import client from '~/plugins/contentful'
 import { mapState, mapGetters } from 'vuex'
-
 import interestQuestions from '~/static/interestQuestions.json'
 import personalityQuestions from '~/static/personalityQuestions.json'
+import questionResults from '~/static/questionResults.json'
+import programmingRecommend from '~/static/programmingRecommend.json'
 
 export default {
 
@@ -198,7 +204,7 @@ li.navSelectedResult{
   margin-bottom: 9px;
 }
 
-.result-wrapper{
+.result-mapping-wrapper{
   position: relative;
   width: 45%;
   margin: 0 auto;
@@ -214,7 +220,7 @@ li.navSelectedResult{
 .next-result-button{
   font-size: 14px;
   padding: 4px 10px;
-  margin: 9px auto;
+  margin: 18px auto;
   border: 1px solid #e6e6e6;
   background: #52B696;
   color: #fff;
@@ -255,7 +261,7 @@ li.navSelectedResult{
     font-size: 11px;
   }
 
-  .result-wrapper{
+  .result-mapping-wrapper{
     width: 100%;
   }
 
