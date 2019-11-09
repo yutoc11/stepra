@@ -10,7 +10,12 @@
           li.nav-personality(v-bind:class='{navSelectedThemePersonality:isActiveThemePersonality}') 性格<br>について
           li.nav-result(v-bind:class='{navSelectedResult:isActiveResult}') 診断結果<br>の発表
 
-    .q-wrapper
+    question-parts(
+      :interestQuestions = "interestQuestions"
+      :personalityQuestions = "personalityQuestions"
+      )
+
+    //-.q-wrapper
       .q-content-wrapper(v-if="questionTheme=='interest'")
         .q-start-wrapper(v-if="questionNumber==0")
           .question-message
@@ -110,6 +115,7 @@
         .result-mapping-child(ref="infoBox")
           img(src="~/assets/images/mapping_child.png")
         .dot(v-bind:style="resultPosition")
+      .next-result-button おすすめのプログラミング教育との<br>向き合い方をみる
       button(@click="restartQuestion") もう一度
 
 
@@ -117,6 +123,7 @@
 
 <script>
 import PostsIndex from '~/components/PostsIndex'
+import QuestionParts from '~/components/QuestionParts'
 import client from '~/plugins/contentful'
 import { mapState, mapGetters } from 'vuex'
 
@@ -130,27 +137,7 @@ export default {
 
   data () {
     return {
-       onGoing: false,
-       questionNumber: 0,
-       question:'',
        result: false,
-       questionTheme: 'interest',
-       questions:[],
-       questionContents: [],
-       choice:0,
-       choice01Content : [],
-       choice02Content : [],
-       choice03Content : [],
-       choice04Content : [],
-       isActiveChoice01 : false,
-       isActiveChoice02 : false,
-       isActiveChoice03 : false,
-       isActiveChoice04 : false,
-       isActiveChoice05 : false,
-       answersInterest : [],
-       answersPersonality : [],
-       answersInterestPoints : [],
-       answersPersonalityPoints : [],
        isActiveThemeInterest : false,
        isActiveThemePersonality : false,
        isActiveResult : false,
@@ -183,228 +170,13 @@ export default {
 
   components: {
     PostsIndex,
+    QuestionParts,
   },
 
   methods: {
 
-    //...mapActions(['answersInterest']),
-    //...mapActions(['answersPersonality']),
-
-    setQuestions(){
-      for(var i = 0 ; i < this.questions.length ; i++){
-
-        //問題をセットする
-        this.questionContents[i] = this.questions[i].q_description;
-
-        //選択肢ををセットする
-        this.choice01Content[i] = this.questions[i].q_choice_1;
-        this.choice02Content[i] = this.questions[i].q_choice_2;
-        this.choice03Content[i] = this.questions[i].q_choice_3;
-        this.choice04Content[i] = this.questions[i].q_choice_4;
-      }
-    },
-
-    setAnswers(){
-      const number = this.questionNumber-1;
-      switch(this.questionTheme){
-        case 'interest':
-          this.answersInterest[number] = this.choice;
-          switch(this.choice){
-            case 1:
-              this.answersInterestPoints[number] = this.questions[number].q_choice01_point;
-              break;
-            case 2:
-              this.answersInterestPoints[number] = this.questions[number].q_choice02_point;
-              break;
-            case 3:
-              this.answersInterestPoints[number] = this.questions[number].q_choice03_point;
-              break;
-            case 4:
-              this.answersInterestPoints[number] = this.questions[number].q_choice04_point;
-              break;
-          }
-          break;
-        case 'personalityQuestion':
-          this.answersPersonality[number] = this.choice;
-          switch(this.choice){
-            case 1:
-              this.answersPersonalityPoints[number] = this.questions[number].q_choice01_point;
-              break;
-            case 2:
-              this.answersPersonalityPoints[number] = this.questions[number].q_choice02_point;
-              break;
-            case 3:
-              this.answersPersonalityPoints[number] = this.questions[number].q_choice03_point;
-              break;
-            case 4:
-              this.answersPersonalityPoints[number] = this.questions[number].q_choice04_point;
-              break;
-          }
-          break;
-      }
-    },
-
-    resetChoices(){
-      this.isActiveChoice01 = false;
-      this.isActiveChoice02 = false;
-      this.isActiveChoice03 = false;
-      this.isActiveChoice04 = false;
-      this.choice = 0;
-    },
-
-    resetAnswers(){
-      this.answersInterest = [];
-      this.answersPersonality = [];
-      this.answersInterestPoints = [];
-      this.answersPersonalityPoints = [];
-    },
-
-    startQuestion(){
-      this.onGoing = true;
-      this.questionNumber = 1;
-      this.resetChoices();
-      this.resetChoices();
-
-      switch(this.questionTheme){
-        case 'interest':
-          this.questions = this.interestQuestions;
-          this.isActiveThemeInterest = true;
-          this.isActiveThemePersonality =  false;
-          this.isActiveResult = false;
-          break;
-        case 'personalityQuestion':
-          this.questions = this.personalityQuestions;
-          this.isActiveThemeInterest = false;
-          this.isActiveThemePersonality =  true;
-          this.isActiveResult = false;
-          break;
-      }
-      this.setQuestions();
-    },
-
-    nextQuestion(){
-      if(this.questions.length > this.questionNumber){
-        this.questionNumber += 1;
-        this.resetChoices();
-      }
-    },
-
-    preQuestion(){
-      this.questionNumber -= 1;
-      this.resetChoices();
-    },
-
-    preQuestionTheme(){
-      this.questionTheme = 'interest'
-      this.isActiveThemeInterest = true;
-      this.isActiveThemePersonality =  false;
-      this.isActiveResult = false;
-
-      this.questions = this.interestQuestions;
-      this.questionNumber = this.questions.length;
-      this.setQuestions();
-
-      this.resetChoices();
-    },
-
-    //-今は使っていない
-    quitQuestion(){
-      this.questionNumber = 0;
-      this.question = ''
-      this.isActiveThemeInterest = false;
-      this.isActiveThemePersonality =  false;
-      this.isActiveResult = false;
-      this.onGoing = true;
-      this.resetChoices();
-      this.resetAnswers();
-    },
-
-    changeQuestionTheme(){
-      this.questionNumber = 0;
-      this.questionTheme = 'personalityQuestion'
-      this.isActiveThemeInterest = false;
-      this.isActiveThemePersonality =  true;
-      this.isActiveResult = false;
-      this.resetChoices();
-    },
-
-    calcResult(){
-      this.questionNumber += 1;
-      this.isActiveThemeInterest = false;
-      this.isActiveThemePersonality =  false;
-      this.isActiveResult = true;
-      this.result = true;
-      this.onGoing = false;
-
-      let arrayInterestPoints = this.answersInterestPoints;
-      let arrayPersonalityPoints = this.answersPersonalityPoints;
-      let sumInterestPoints = arrayInterestPoints.reduce((a,x) => a+=x,0);
-      let sumPersonalityPoints = arrayPersonalityPoints.reduce((a,x) => a+=x,0);
-      console.log('とりあえず回ってる');
-      console.log(sumInterestPoints);
-      console.log(sumPersonalityPoints);
-
-
-      console.log(this.result);
-      console.log('結果を算出中！');
-      this.$nextTick(() => {
-        console.log('描写なう')
-        let width = this.$refs.infoBox.clientWidth;
-        let height = this.$refs.infoBox.clientHeight;
-
-        //直書きだから早く直す -40 ~ 40 の幅を、0~80×幅に変えている
-        let moveXpercent = ( sumInterestPoints + 40 ) / 80 * 100;
-        let moveYpercent = ( sumPersonalityPoints + 60 ) / 120 * 100;
-
-        this.resultPosition['left'] = `calc(${moveXpercent}% - 15px)`;
-        this.resultPosition['top'] = `calc(${moveYpercent}% - 15px)`;
-        console.log(this.resultPosition['left']);
-        console.log(this.resultPosition['top']);
-      });
-      this.resetChoices();
-    },
-
     restartQuestion(){
-      this.questionNumber = 0;
-      this.result = false;
-      this.questionTheme = 'interest'
-      this.resetChoices();
-      this.isActiveResult = false;
-      this.result = false;
-    },
-
-    choice01Click(){
-      this.choice = (this.choice != 1) ? 1 : 0 ;
-      this.isActiveChoice01 = !this.isActiveChoice01;
-      this.isActiveChoice02 = false;
-      this.isActiveChoice03 = false;
-      this.isActiveChoice04 = false;
-      this.setAnswers();
-    },
-
-    choice02Click(){
-      this.choice = (this.choice != 2) ? 2 : 0 ;
-      this.isActiveChoice01 = false;
-      this.isActiveChoice02 = !this.isActiveChoice02;
-      this.isActiveChoice03 = false;
-      this.isActiveChoice04 = false;
-      this.setAnswers();
-    },
-    choice03Click(){
-      this.choice = (this.choice != 3) ? 3 : 0 ;
-      this.isActiveChoice01 = false;
-      this.isActiveChoice02 = false;
-      this.isActiveChoice03 = !this.isActiveChoice03;
-      this.isActiveChoice04 = false;
-      this.setAnswers();
-    },
-    choice04Click(){
-      this.choice = (this.choice != 4) ? 4 : 0 ;
-      this.isActiveChoice01 = false;
-      this.isActiveChoice02 = false;
-      this.isActiveChoice03 = false;
-      this.isActiveChoice04 = !this.isActiveChoice04;
-      this.setAnswers();
+      this.$router.go({path: this.$router.currentRoute.path, force: true})
     },
   }
 }
@@ -424,12 +196,10 @@ section{
 h2.q-title{
   position:relative;
   text-align:center;
-  padding: 18px 0;
+  padding: 9px 0;
   font-weight: bold;
   color: #fff;
   z-index: 100;
-  -webkit-text-stroke: 1px #fff;
-  text-stroke: 1px #fff;
   letter-spacing:1.5px;
 }
 
@@ -510,7 +280,6 @@ li.navSelectedResult{
 
 }
 
-.q-result-wrapper,
 .q-wrapper{
   width: 100%;
   margin: 0 auto;
@@ -714,6 +483,15 @@ li.navSelectedResult{
   opacity: 0.8;
 }
 
+.q-result-wrapper{
+  width: 100%;
+  margin: 0 auto;
+  padding: 9px 9px;
+  text-align: center;
+  color: #787C7B;
+  font-weight: 500;
+}
+
 .result-title{
   font-size: 1rem;
   margin-bottom: 9px;
@@ -721,6 +499,8 @@ li.navSelectedResult{
 
 .result-wrapper{
   position: relative;
+  width: 45%;
+  margin: 0 auto;
   .dot{
     position: absolute;
     width: 30px;
@@ -728,6 +508,24 @@ li.navSelectedResult{
     border-radius: 50%;
     background-image: linear-gradient(45deg, #709dff 0%, #91fdb7 100%);
   }
+}
+
+.next-result-button{
+  font-size: 14px;
+  padding: 4px 10px;
+  margin: 9px auto;
+  border: 1px solid #e6e6e6;
+  background: #52B696;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 300px;
+  align-items: center;
+}
+
+.next-result-button:hover{
+  opacity:0.7;
 }
 
 //ここからスマホ
@@ -745,8 +543,6 @@ li.navSelectedResult{
     padding: 9px 0;
     font-weight: bold;
     font-size:14px;
-    -webkit-text-stroke: #fff;
-    text-stroke: #fff;
   }
 
   .q-status-wrapper{
@@ -820,6 +616,10 @@ li.navSelectedResult{
     .icon{
       padding:8px 0 0 0;
     }
+  }
+
+  .result-wrapper{
+    width: 100%;
   }
 
 }
