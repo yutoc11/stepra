@@ -5,6 +5,7 @@ export const state = () => ({
   posts: [],
   categories: [],
   tags: [],
+  resultType: null,
   //answersInterest: [],
   //answersPersonality: [],
 })
@@ -56,6 +57,9 @@ export const mutations = {
   setTags(state, payload) {
     state.tags = payload
   },
+  setResultType(state, payload){
+    state.resultType = payload
+  },
   // setAnswersInterest(state, payload) {
   //   state.answersInterest = payload
   // },
@@ -74,6 +78,10 @@ export const actions = {
   // setAnswersPersonality ({ commit }, payload) {
   //   commit('setAnswersPersonality', payload)
   // },
+
+  setResultType ({ commit }, payload) {
+    commit('setResultType', payload)
+  },
 
   async getPosts({ commit }) {
     await client.getEntries({

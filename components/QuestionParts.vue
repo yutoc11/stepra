@@ -95,6 +95,8 @@
 
 <script>
 
+import { mapActions, mapState, mapGetters } from 'vuex'
+
 export default {
 
   props:['interestQuestions','personalityQuestions'],
@@ -125,9 +127,12 @@ export default {
   },
 
   computed:{
+    ...mapState(['resultType']),
   },
 
   methods: {
+
+    ...mapActions(['setResultType']),
 
     //...mapActions(['answersInterest']),
     //...mapActions(['answersPersonality']),
@@ -335,6 +340,22 @@ export default {
         let moveXpercent = ( sumInterestPoints + 40 ) / 80 * 100;
         let moveYpercent = ( sumPersonalityPoints + 60 ) / 120 * 100;
 
+        if( moveXpercent > 50 && moveYpercent <= 50 ){
+          // 第一象限の場合
+          this.setResultType(1);
+        }else if ( moveXpercent <= 50 && moveYpercent <=50 ) {
+          // 第二象限の場合
+          this.setResultType(2);
+        }else if ( moveXpercent <= 50 && moveYpercent > 50 ) {
+          // 第三象限の場合
+          this.setResultType(3);
+        }else{
+          // 第四象限の場合
+          this.setResultType(4);
+        }
+
+        console.log(this.$store.state.resultType);
+
         this.$parent.resultPosition['left'] = `calc(${moveXpercent}% - 15px)`;
         this.$parent.resultPosition['top'] = `calc(${moveYpercent}% - 15px)`;
       });
@@ -434,6 +455,7 @@ p.question-progress{
 
 .choice-content{
   padding: 0 9px;
+  font-size: 14px;
 }
 
 .btn-circle.choice01Class,
@@ -552,6 +574,54 @@ p.question-progress{
   opacity: 0.8;
 }
 
+// タブレット
+@media screen and (max-width: 620px) {
+
+  .question-message,
+  p.question-content,
+  p.question-progress{
+    font-size: 0.8rem;
+  }
+
+  .choice-content{
+    font-size: 14px;
+  }
+
+  .btn-circle {
+    width: 150px;
+    height: 150px;
+  }
+
+  .section__btn--pre,
+  .section__btn--next{
+    width: 50px;
+    height: 50px;
+    line-height:50px;
+  }
+
+  .section__btn--pre:hover,
+  .section__btn--next:hover{
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  }
+
+  .section__btn--pre{
+    left: 20px;
+
+    .icon{
+      padding:8px 8px 0 0;
+    }
+  }
+
+  .section__btn--next{
+    right: 20px;
+
+    .icon{
+      padding:8px 0 0 0;
+    }
+  }
+
+}
+
 //ここからスマホ
 @media screen and (max-width: 480px) {
 
@@ -621,42 +691,7 @@ p.question-progress{
 
 }
 
-// タブレット
-@media screen and (max-width: 620px) {
-  .btn-circle {
-    width: 150px;
-    height: 150px;
-  }
 
-  .section__btn--pre,
-  .section__btn--next{
-    width: 50px;
-    height: 50px;
-    line-height:50px;
-  }
-
-  .section__btn--pre:hover,
-  .section__btn--next:hover{
-    box-shadow: 0 0 10px rgba(0,0,0,0.4);
-  }
-
-  .section__btn--pre{
-    left: 20px;
-
-    .icon{
-      padding:8px 8px 0 0;
-    }
-  }
-
-  .section__btn--next{
-    right: 20px;
-
-    .icon{
-      padding:8px 0 0 0;
-    }
-  }
-
-}
 
 
 </style>
