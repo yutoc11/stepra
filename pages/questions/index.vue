@@ -15,7 +15,7 @@
       :personalityQuestions = "personalityQuestions"
       )
 
-    .q-result-wrapper.stepra-content
+    .q-result-wrapper.stepra-content(v-if="resultTheme=='child'")
       h2.result-title.result-mapping-title お子様の診断結果は・・・
       .result-mapping-wrapper
         .result-mapping-child
@@ -28,12 +28,14 @@
         .result-personality
           h2.result-title 性格について
           p お子様の性格は、とても外向的でみんなでが好きです。
-      .next-result-button おすすめのプログラミング教育との<br>向き合い方をみる
+      .next-result-button(@click="resultThemeChange") おすすめのプログラミング教育との<br>向き合い方をみる
       .result-school-wrapper
         .result-school
           h2.result-title おすすめのプログラミング教育との向き合い方
           p お子さまの向いているスクールはこういうところですね。
       b-button(@click="restartQuestion") もう一度
+    .q-result-wrapper.stepra-content(v-else-if="resultTheme=='it'")
+      p itにチェンジしたよー！
 </template>
 
 <script>
@@ -61,6 +63,7 @@ export default {
          'top': 'calc(50% - 15px)',
          'left': 'calc(50% - 15px)',
          },
+       resultTheme: '',
     };
   },
 
@@ -93,6 +96,10 @@ export default {
 
     restartQuestion(){
       this.$router.go({path: this.$router.currentRoute.path, force: true})
+    },
+
+    resultThemeChange(){
+      this.resultTheme = 'it';
     },
   }
 }
