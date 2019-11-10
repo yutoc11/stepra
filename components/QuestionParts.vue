@@ -355,6 +355,9 @@ export default {
 
 .question-message{
   padding:18px 9px;
+  p{
+    margin: 9px 0;
+  }
 }
 
 .q-wrapper,q-result-wrapper{
@@ -388,9 +391,10 @@ export default {
   }
 
 }
-
-.question-progress{
-  margin-bottom: 18px;
+p.question-content,
+p.question-progress{
+  margin: 4px 0;
+  font-size: 1.1rem;
 }
 
 .question-content{
@@ -416,11 +420,12 @@ export default {
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  margin-bottom: 9px;
   color: #fff;
   font-weight: bold;
   font-size: 1rem;
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   background-image: linear-gradient(45deg, #709dff 0%, #91fdb7 100%);
   transition: .4s;
@@ -577,7 +582,6 @@ export default {
     border-radius: 50%;
     background-image: linear-gradient(45deg, #709dff 0%, #91fdb7 100%);
     transition: .4s;
-    margin-bottom:9px;
   }
 
   .choice-content{

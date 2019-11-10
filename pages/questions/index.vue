@@ -1,5 +1,5 @@
 <template lang="pug">
-  section
+  section.stepra-content
     .q-title-wrapper
       .q-title-bg
       h2.q-title 「今、どうするべき？」がわかる、<br>プログラミング教育診断
@@ -15,18 +15,24 @@
       :personalityQuestions = "personalityQuestions"
       )
 
-    .q-result-wrapper
-      h3.result-title お子様の診断結果は・・・
+    .q-result-wrapper.stepra-content
+      h2.result-title.result-mapping-title お子様の診断結果は・・・
       .result-mapping-wrapper
         .result-mapping-child
           img(src="~/assets/images/mapping_child.png")
         .dot(v-bind:style="resultPosition")
+      .result-child-wrapper
+        .result-interest
+          h2.result-title ITへの興味関心
+          p お子様のITへの好奇心や、現時点での素養は、絶妙です。
+        .result-personality
+          h2.result-title 性格について
+          p お子様の性格は、とても外向的でみんなでが好きです。
       .next-result-button おすすめのプログラミング教育との<br>向き合い方をみる
-      .result-school
-      .result-interest
-        p お子様のITへの好奇心や、現時点での素養は、「」です。
-      .result-personality
-        p お子様の性格は、「」です。
+      .result-school-wrapper
+        .result-school
+          h2.result-title おすすめのプログラミング教育との向き合い方
+          p お子さまの向いているスクールはこういうところですね。
       b-button(@click="restartQuestion") もう一度
 </template>
 
@@ -107,6 +113,7 @@ h2.q-title{
   position:relative;
   text-align:center;
   padding: 9px 0;
+  margin: 0;
   font-weight: bold;
   color: #fff;
   z-index: 100;
@@ -194,9 +201,8 @@ li.navSelectedResult{
   width: 100%;
   margin: 0 auto;
   padding: 9px 9px;
-  text-align: center;
+  text-align: left;
   color: #787C7B;
-  font-weight: 500;
 }
 
 .result-title{
@@ -204,10 +210,16 @@ li.navSelectedResult{
   margin-bottom: 9px;
 }
 
+.result-title.result-mapping-title{
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 0;
+}
+
 .result-mapping-wrapper{
   position: relative;
-  width: 45%;
-  margin: 0 auto;
+  width: 100%;
+  margin: 18px auto;
   .dot{
     position: absolute;
     width: 30px;
@@ -229,6 +241,7 @@ li.navSelectedResult{
   cursor: pointer;
   width: 300px;
   align-items: center;
+  text-align: center;
 }
 
 .next-result-button:hover{
@@ -261,8 +274,8 @@ li.navSelectedResult{
     font-size: 11px;
   }
 
-  .result-mapping-wrapper{
-    width: 100%;
+  .next-result-button{
+    width: 90%;
   }
 
 }
