@@ -321,6 +321,7 @@ export default {
       this.$parent.isActiveThemePersonality =  false;
       this.$parent.isActiveResult = true;
       this.$parent.result = true;
+      this.$parent.resultTheme = 'child';
       this.onGoing = false;
       this.resetChoices();
 
@@ -496,7 +497,7 @@ p.question-progress{
 
 .section__btn--pre,
 .section__btn--next{
-  position: fixed;
+  position: absolute;
   width: 75px;
   height: 75px;
   line-height:75px;
@@ -505,7 +506,7 @@ p.question-progress{
   background: #fff;
   box-shadow: 0 0 5px rgba(0,0,0,0.4);
   cursor: pointer;
-  top: 50vh;
+  top: calc(50% - 9px);
 }
 
 .section__btn--pre:hover,
@@ -594,7 +595,7 @@ p.question-progress{
     width: 50px;
     height: 50px;
     line-height:50px;
-    top: 150vw;
+    top: 95vw;
   }
 
   .section__btn--pre:hover,
@@ -612,6 +613,43 @@ p.question-progress{
 
   .section__btn--next{
     right: 5px;
+
+    .icon{
+      padding:8px 0 0 0;
+    }
+  }
+
+}
+
+// タブレット
+@media screen and (max-width: 620px) {
+  .btn-circle {
+    width: 150px;
+    height: 150px;
+  }
+
+  .section__btn--pre,
+  .section__btn--next{
+    width: 50px;
+    height: 50px;
+    line-height:50px;
+  }
+
+  .section__btn--pre:hover,
+  .section__btn--next:hover{
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  }
+
+  .section__btn--pre{
+    left: 20px;
+
+    .icon{
+      padding:8px 8px 0 0;
+    }
+  }
+
+  .section__btn--next{
+    right: 20px;
 
     .icon{
       padding:8px 0 0 0;
