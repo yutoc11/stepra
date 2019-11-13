@@ -99,7 +99,7 @@ import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
 
-  props:['interestQuestions','personalityQuestions'],
+  props:['interestQuestions','personalityQuestions','questionResults'],
 
   data () {
     return {
@@ -340,6 +340,13 @@ export default {
         let moveXpercent = ( sumInterestPoints + 40 ) / 80 * 100;
         let moveYpercent = ( sumPersonalityPoints + 60 ) / 120 * 100;
 
+        // 興味関心の結果コメントをセット
+        if( moveXpercent <= 25 ){
+          this.$parent.interestResultComment = this.questionResults[0].lv_1;
+          console.log(this.$parent.interestResultComment);
+        }
+
+        //どの象限にいるか
         if( moveXpercent > 50 && moveYpercent <= 50 ){
           // 第一象限の場合
           this.setResultType(1);

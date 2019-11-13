@@ -13,6 +13,7 @@
     question-parts(
       :interestQuestions = "interestQuestions"
       :personalityQuestions = "personalityQuestions"
+      :questionResults = "questionResults"
       )
 
     .q-result-wrapper.stepra-content(v-if="result")
@@ -24,10 +25,11 @@
       .result-child-wrapper
         .result-interest
           h2.result-title ITへの興味関心
-          p お子様のITへの好奇心や、現時点での素養は、絶妙です。
+          p {{ interestResultComment }}
         .result-personality
           h2.result-title 性格の傾向
-          p お子様の性格は、とても外向的でみんなでが好きです。
+          p(if="personalityResultComment") {{ personalityResultComment }}
+          p(else) 何も入ってない感じ
       //-.result-school-wrapper
         .result-school
           h2.result-title おすすめのプログラミング教育との向き合い方
@@ -64,6 +66,8 @@ export default {
        isActiveThemeInterest : false,
        isActiveThemePersonality : false,
        isActiveResult : false,
+       interestResultComment : '',
+       personalityResultComment : '',
        resultPosition : {
          'top': 'calc(50% - 15px)',
          'left': 'calc(50% - 15px)',
@@ -75,6 +79,8 @@ export default {
     return {
       interestQuestions,
       personalityQuestions,
+      questionResults,
+      programmingRecommend,
     }
   },
 
