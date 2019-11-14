@@ -343,7 +343,24 @@ export default {
         // 興味関心の結果コメントをセット
         if( moveXpercent <= 25 ){
           this.$parent.interestResultComment = this.questionResults[0].lv_1;
-          console.log(this.$parent.interestResultComment);
+        }else if ( moveXpercent <= 50 ){
+          this.$parent.interestResultComment = this.questionResults[0].lv_2;
+        }else if ( moveXpercent <= 75 ){
+          this.$parent.interestResultComment = this.questionResults[0].lv_3;
+        }else if ( moveXpercent > 75 ){
+          this.$parent.interestResultComment = this.questionResults[0].lv_4;
+        }
+        console.log(this.$parent.interestResultComment);
+
+        // 性格の結果コメントをセット
+        if( moveYpercent <= 25 ){
+          this.$parent.personalityResultComment = this.questionResults[1].lv_1;
+        }else if ( moveYpercent <= 50 ){
+          this.$parent.personalityResultComment = this.questionResults[1].lv_2;
+        }else if ( moveYpercent <= 75 ){
+          this.$parent.personalityResultComment = this.questionResults[1].lv_3;
+        }else if ( moveYpercent > 75 ){
+          this.$parent.personalityResultComment = this.questionResults[1].lv_4;
         }
 
         //どの象限にいるか

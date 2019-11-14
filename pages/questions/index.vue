@@ -28,8 +28,7 @@
           p {{ interestResultComment }}
         .result-personality
           h2.result-title 性格の傾向
-          p(if="personalityResultComment") {{ personalityResultComment }}
-          p(else) 何も入ってない感じ
+          p {{ personalityResultComment }}
       //-.result-school-wrapper
         .result-school
           h2.result-title おすすめのプログラミング教育との向き合い方
