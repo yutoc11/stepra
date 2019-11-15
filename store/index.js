@@ -6,6 +6,8 @@ export const state = () => ({
   categories: [],
   tags: [],
   resultType: null,
+  resultInterestLv: null,
+  resultPersonalityLv: null,
   //answersInterest: [],
   //answersPersonality: [],
 })
@@ -60,6 +62,12 @@ export const mutations = {
   setResultType(state, payload){
     state.resultType = payload
   },
+  setResultInterestLv(state, payload){
+    state.resultInterestLv = payload
+  },
+  setResultPersonalityLv(state, payload){
+    state.resultPersonalityLv = payload
+  },
   // setAnswersInterest(state, payload) {
   //   state.answersInterest = payload
   // },
@@ -81,6 +89,14 @@ export const actions = {
 
   setResultType ({ commit }, payload) {
     commit('setResultType', payload)
+  },
+
+  setResultInterestLv ({ commit }, payload) {
+    commit('setResultInterestLv', payload)
+  },
+
+  setResultPersonalityLv ({ commit }, payload) {
+    commit('setResultPersonalityLv', payload)
   },
 
   async getPosts({ commit }) {

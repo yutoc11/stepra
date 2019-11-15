@@ -128,11 +128,15 @@ export default {
 
   computed:{
     ...mapState(['resultType']),
+    ...mapState(['resultInterestLv']),
+    ...mapState(['resultPersonalityLv']),
   },
 
   methods: {
 
     ...mapActions(['setResultType']),
+    ...mapActions(['setResultInterestLv']),
+    ...mapActions(['setResultPersonalityLv']),
 
     //...mapActions(['answersInterest']),
     //...mapActions(['answersPersonality']),
@@ -343,25 +347,36 @@ export default {
         // 興味関心の結果コメントをセット
         if( moveXpercent <= 25 ){
           this.$parent.interestResultComment = this.questionResults[0].lv_1;
+          this.setResultInterestLv(1);
         }else if ( moveXpercent <= 50 ){
           this.$parent.interestResultComment = this.questionResults[0].lv_2;
+          this.setResultInterestLv(2);
         }else if ( moveXpercent <= 75 ){
           this.$parent.interestResultComment = this.questionResults[0].lv_3;
+          this.setResultInterestLv(3);
         }else if ( moveXpercent > 75 ){
           this.$parent.interestResultComment = this.questionResults[0].lv_4;
+          this.setResultInterestLv(4);
         }
         console.log(this.$parent.interestResultComment);
+        console.log(this.$store.state.resultInterestLv);
 
         // 性格の結果コメントをセット
         if( moveYpercent <= 25 ){
           this.$parent.personalityResultComment = this.questionResults[1].lv_1;
+          this.setResultPersonalityLv(1);
         }else if ( moveYpercent <= 50 ){
           this.$parent.personalityResultComment = this.questionResults[1].lv_2;
+          this.setResultPersonalityLv(2);
         }else if ( moveYpercent <= 75 ){
           this.$parent.personalityResultComment = this.questionResults[1].lv_3;
+          this.setResultPersonalityLv(3);
         }else if ( moveYpercent > 75 ){
           this.$parent.personalityResultComment = this.questionResults[1].lv_4;
+          this.setResultPersonalityLv(4);
         }
+        console.log(this.$parent.personalityResultComment);
+        console.log(this.$store.state.resultPersonalityLv);
 
         //どの象限にいるか
         if( moveXpercent > 50 && moveYpercent <= 50 ){
