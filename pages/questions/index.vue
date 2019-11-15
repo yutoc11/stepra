@@ -33,7 +33,8 @@
         .result-school
           h2.result-title おすすめのプログラミング教育との向き合い方
           p お子さまの向いているスクールはこういうところですね。
-      .next-result-button おすすめのプログラミング<br>教材/教室をみる
+      nuxt-link(to="/recommendation")
+        .next-result-button おすすめのプログラミング<br>教材/教室をみる
       .retry-button-wrapper.has-text-centered
         b-button(
           @click="restartQuestion"
