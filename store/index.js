@@ -5,6 +5,7 @@ export const state = () => ({
   posts: [],
   categories: [],
   tags: [],
+  rectexts: [],
   resultType: null,
   resultInterestLv: null,
   resultPersonalityLv: null,
@@ -45,7 +46,83 @@ export const getters = {
       }
     }
     return posts
-  }
+  },
+
+  foryourRectext: state => (iLv,pLv) => {
+    const rectext = '';
+    const recType = '';
+    switch (pLv) {
+      case 1:
+        switch (iLv) {
+          case 1:
+            recType = 'type1';
+            break;
+          case 2:
+            recType = 'type2';
+            break;
+          case 3:
+            recType = 'type3';
+            break;
+          case 4:
+            recType = 'type4';
+            break;
+        }
+        break;
+      case 2:
+        switch (iLv) {
+          case 1:
+            recType = 'type5';
+            break;
+          case 2:
+            recType = 'type6';
+            break;
+          case 3:
+            recType = 'type7';
+            break;
+          case 4:
+            recType = 'type8';
+            break;
+        }
+        break;
+      case 3:
+        switch (iLv) {
+          case 1:
+            recType = 'type9';
+            break;
+          case 2:
+            recType = 'type10';
+            break;
+          case 3:
+            recType = 'type11';
+            break;
+          case 4:
+            recType = 'type12';
+            break;
+        }
+        break;
+      case 4:
+        switch (iLv) {
+          case 1:
+            recType = 'type13';
+            break;
+          case 2:
+            recType = 'type14';
+            break;
+          case 3:
+            recType = 'type15';
+            break;
+          case 4:
+            recType = 'type16';
+            break;
+        }
+        break;
+    }
+    for (let i = 0; i < state.rectexts.length; i++) {
+      const catSlug = state.rectexts[i].fields.slug
+      if (recType === catSlug) rectext.push(state.posts[i])
+    }
+    return rectext
+  },
 }
 //(v-for="uniquetag in post.fields.tags")
 // 追記
@@ -58,6 +135,9 @@ export const mutations = {
   },
   setTags(state, payload) {
     state.tags = payload
+  },
+  setRectexts(state, payload) {
+    state.rectexts = payload
   },
   setResultType(state, payload){
     state.resultType = payload
@@ -123,6 +203,14 @@ export const actions = {
       order: 'fields.sort'
     }).then(res =>
       commit('setTags', res.items)
+    ).catch(console.error)
+  },
+
+  async getRectexts({ commit }) {
+    await client.getEntries({
+      content_type: 'rectext',
+    }).then(res =>
+      commit('setRectexts', res.items)
     ).catch(console.error)
   }
 

@@ -70,8 +70,11 @@ export default {
         }),
         client.getEntries({        							// 追記
           content_type: 'tag'
-        })
-      ]).then(([posts, categories,tags]) => {        // 追記
+        }),
+        client.getEntries({        							// 追記
+          content_type: 'rectext'
+        }),
+      ]).then(([posts,categories,tags,rectexts]) => {        // 追記
         return [
           ...posts.items.map((post) => {
             return { route: `posts/${post.fields.slug}`, payload: post }
@@ -81,7 +84,10 @@ export default {
           }),
           ...tags.items.map((tag) => {        // 追記
             return { route: `tags/${tag.fields.slug}`, payload: tag }
-          })
+          }),
+          ...rextexts.items.map((rectext) => {        // 追記
+            return { route: `rectexts/${rectext.fields.slug}`, payload: rectext }
+          }),
         ]
       })
     }
