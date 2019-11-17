@@ -130,6 +130,7 @@ export default {
     ...mapState(['resultType']),
     ...mapState(['resultInterestLv']),
     ...mapState(['resultPersonalityLv']),
+    ...mapState(['recType']),
   },
 
   methods: {
@@ -137,6 +138,7 @@ export default {
     ...mapActions(['setResultType']),
     ...mapActions(['setResultInterestLv']),
     ...mapActions(['setResultPersonalityLv']),
+    ...mapActions(['setRecType']),
 
     //...mapActions(['answersInterest']),
     //...mapActions(['answersPersonality']),
@@ -324,6 +326,80 @@ export default {
       this.setAnswers();
     },
 
+    calcRecType(pLv,iLv){
+      let recType = '';
+      switch (pLv) {
+        case 1:
+          switch (iLv) {
+            case 1:
+              recType = 'type1';
+              break;
+            case 2:
+              recType = 'type2';
+              break;
+            case 3:
+              recType = 'type3';
+              break;
+            case 4:
+              recType = 'type4';
+              break;
+          }
+          this.setRecType(recType);
+          break;
+        case 2:
+          switch (iLv) {
+            case 1:
+              recType = 'type5';
+              break;
+            case 2:
+              recType = 'type6';
+              break;
+            case 3:
+              recType = 'type7';
+              break;
+            case 4:
+              recType = 'type8';
+              break;
+          }
+          this.setRecType(recType);
+          break;
+        case 3:
+          switch (iLv) {
+            case 1:
+              recType = 'type9';
+              break;
+            case 2:
+              recType = 'type10';
+              break;
+            case 3:
+              recType = 'type11';
+              break;
+            case 4:
+              recType = 'type12';
+              break;
+          }
+          this.setRecType(recType);
+          break;
+        case 4:
+          switch (iLv) {
+            case 1:
+              recType = 'type13';
+              break;
+            case 2:
+              recType = 'type14';
+              break;
+            case 3:
+              recType = 'type15';
+              break;
+            case 4:
+              recType = 'type16';
+              break;
+          }
+          this.setRecType(recType);
+          break;
+      }
+    },
+
     calcResult(){
       this.questionNumber += 1;
       this.$parent.isActiveThemeInterest = false;
@@ -339,62 +415,68 @@ export default {
       let sumInterestPoints = arrayInterestPoints.reduce((a,x) => a+=x,0);
       let sumPersonalityPoints = arrayPersonalityPoints.reduce((a,x) => a+=x,0);
 
+      //直書きだから早く直す -40 ~ 40 の幅を、0~80×幅、のように変えている
+      let moveXpercent = ( sumInterestPoints + 40 ) / 80 * 100;
+      let moveYpercent = ( sumPersonalityPoints + 60 ) / 120 * 100;
+
+      // 興味関心の結果コメントをセット
+      if( moveXpercent <= 25 ){
+        this.$parent.interestResultComment = this.questionResults[0].lv_1;
+        this.setResultInterestLv(1);
+      }else if ( moveXpercent <= 50 ){
+        this.$parent.interestResultComment = this.questionResults[0].lv_2;
+        this.setResultInterestLv(2);
+      }else if ( moveXpercent <= 75 ){
+        this.$parent.interestResultComment = this.questionResults[0].lv_3;
+        this.setResultInterestLv(3);
+      }else if ( moveXpercent > 75 ){
+        this.$parent.interestResultComment = this.questionResults[0].lv_4;
+        this.setResultInterestLv(4);
+      }
+      console.log(this.$parent.interestResultComment);
+      console.log(this.$store.state.resultInterestLv);
+
+      // 性格の結果コメントをセット
+      if( moveYpercent <= 25 ){
+        this.$parent.personalityResultComment = this.questionResults[1].lv_1;
+        this.setResultPersonalityLv(1);
+      }else if ( moveYpercent <= 50 ){
+        this.$parent.personalityResultComment = this.questionResults[1].lv_2;
+        this.setResultPersonalityLv(2);
+      }else if ( moveYpercent <= 75 ){
+        this.$parent.personalityResultComment = this.questionResults[1].lv_3;
+        this.setResultPersonalityLv(3);
+      }else if ( moveYpercent > 75 ){
+        this.$parent.personalityResultComment = this.questionResults[1].lv_4;
+        this.setResultPersonalityLv(4);
+      }
+      console.log(this.$parent.personalityResultComment);
+      console.log(this.$store.state.resultPersonalityLv);
+
+      //どの象限にいるか
+      if( moveXpercent > 50 && moveYpercent <= 50 ){
+        // 第一象限の場合
+        this.setResultType(1);
+      }else if ( moveXpercent <= 50 && moveYpercent <=50 ) {
+        // 第二象限の場合
+        this.setResultType(2);
+      }else if ( moveXpercent <= 50 && moveYpercent > 50 ) {
+        // 第三象限の場合
+        this.setResultType(3);
+      }else{
+        // 第四象限の場合
+        this.setResultType(4);
+      }
+
+      console.log(this.$store.state.resultType);
+
+      // 結果タイプの計算
+      const pLv = this.$store.state.resultPersonalityLv;
+      const iLv = this.$store.state.resultPersonalityLv;
+      this.calcRecType(pLv,iLv);
+      console.log(this.$store.state.recType)
+
       this.$nextTick(() => {
-        //直書きだから早く直す -40 ~ 40 の幅を、0~80×幅、のように変えている
-        let moveXpercent = ( sumInterestPoints + 40 ) / 80 * 100;
-        let moveYpercent = ( sumPersonalityPoints + 60 ) / 120 * 100;
-
-        // 興味関心の結果コメントをセット
-        if( moveXpercent <= 25 ){
-          this.$parent.interestResultComment = this.questionResults[0].lv_1;
-          this.setResultInterestLv(1);
-        }else if ( moveXpercent <= 50 ){
-          this.$parent.interestResultComment = this.questionResults[0].lv_2;
-          this.setResultInterestLv(2);
-        }else if ( moveXpercent <= 75 ){
-          this.$parent.interestResultComment = this.questionResults[0].lv_3;
-          this.setResultInterestLv(3);
-        }else if ( moveXpercent > 75 ){
-          this.$parent.interestResultComment = this.questionResults[0].lv_4;
-          this.setResultInterestLv(4);
-        }
-        console.log(this.$parent.interestResultComment);
-        console.log(this.$store.state.resultInterestLv);
-
-        // 性格の結果コメントをセット
-        if( moveYpercent <= 25 ){
-          this.$parent.personalityResultComment = this.questionResults[1].lv_1;
-          this.setResultPersonalityLv(1);
-        }else if ( moveYpercent <= 50 ){
-          this.$parent.personalityResultComment = this.questionResults[1].lv_2;
-          this.setResultPersonalityLv(2);
-        }else if ( moveYpercent <= 75 ){
-          this.$parent.personalityResultComment = this.questionResults[1].lv_3;
-          this.setResultPersonalityLv(3);
-        }else if ( moveYpercent > 75 ){
-          this.$parent.personalityResultComment = this.questionResults[1].lv_4;
-          this.setResultPersonalityLv(4);
-        }
-        console.log(this.$parent.personalityResultComment);
-        console.log(this.$store.state.resultPersonalityLv);
-
-        //どの象限にいるか
-        if( moveXpercent > 50 && moveYpercent <= 50 ){
-          // 第一象限の場合
-          this.setResultType(1);
-        }else if ( moveXpercent <= 50 && moveYpercent <=50 ) {
-          // 第二象限の場合
-          this.setResultType(2);
-        }else if ( moveXpercent <= 50 && moveYpercent > 50 ) {
-          // 第三象限の場合
-          this.setResultType(3);
-        }else{
-          // 第四象限の場合
-          this.setResultType(4);
-        }
-
-        console.log(this.$store.state.resultType);
-
         this.$parent.resultPosition['left'] = `calc(${moveXpercent}% - 15px)`;
         this.$parent.resultPosition['top'] = `calc(${moveYpercent}% - 15px)`;
       });

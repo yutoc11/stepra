@@ -9,6 +9,7 @@ export const state = () => ({
   resultType: null,
   resultInterestLv: null,
   resultPersonalityLv: null,
+  recType: null,
   //answersInterest: [],
   //answersPersonality: [],
 })
@@ -123,6 +124,7 @@ export const getters = {
     }
     return rectext
   },
+
 }
 //(v-for="uniquetag in post.fields.tags")
 // 追記
@@ -147,6 +149,9 @@ export const mutations = {
   },
   setResultPersonalityLv(state, payload){
     state.resultPersonalityLv = payload
+  },
+  setRecType(state, payload){
+    state.recType = payload
   },
   // setAnswersInterest(state, payload) {
   //   state.answersInterest = payload
@@ -177,6 +182,10 @@ export const actions = {
 
   setResultPersonalityLv ({ commit }, payload) {
     commit('setResultPersonalityLv', payload)
+  },
+
+  setRecType ({ commit }, payload) {
+    commit('setRecType', payload)
   },
 
   async getPosts({ commit }) {

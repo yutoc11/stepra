@@ -33,7 +33,7 @@
         .result-school
           h2.result-title おすすめのプログラミング教育との向き合い方
           p お子さまの向いているスクールはこういうところですね。
-      nuxt-link(to="/recommendation")
+      nuxt-link(:to="`rectexts/${$store.state.recType}`")
         .next-result-button おすすめのプログラミング<br>教材/教室をみる
       .retry-button-wrapper.has-text-centered
         b-button(
@@ -88,9 +88,13 @@ export default {
     ...mapState(['posts']),
     ...mapState(['categories']),
     ...mapState(['tags']),
+    ...mapState(['rectexts']),
     //...mapState(['answersInterest']),
     //...mapState(['answersPersonality']),
     ...mapGetters(['linkTo']),
+    foryourRectext() {
+      return this.$store.getters.foryourRectext(this.$store.state.resultInterestLv,this.$store.state.resultPersonalityLv)
+    }
   },
 
   created: function(){
