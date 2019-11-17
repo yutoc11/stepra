@@ -29,10 +29,10 @@ html {
   margin: 0;
 }
 
-.container{
+.stepra-container{
   max-width: 620px;
   margin: 0 auto;
-  padding:12px 12px 50px;
+  padding:0 50px;
 }
 
 .thumb{
@@ -41,6 +41,14 @@ html {
   img{
     width:100%;
   }
+}
+
+.stepra-description{
+  background-color: #F7F9F9;
+  padding: 25px 36px;
+  margin: 36px 0;
+  line-height: 36px;
+  font-size: 16px;
 }
 
 h1,h2,h3,h4{

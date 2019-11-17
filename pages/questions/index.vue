@@ -1,5 +1,5 @@
 <template lang="pug">
-  section.stepra-content
+  section.stepra-container
     .q-title-wrapper
       .q-title-bg
       h2.q-title 「今、どうするべき？」がわかる、<br>プログラミング教育診断

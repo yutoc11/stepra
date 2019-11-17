@@ -1,15 +1,12 @@
 <template lang="pug">
-  section.stepra-content
+  section.stepra-container
     .r-title-wrapper
       .r-title-bg
       h2.r-title お子様に合った、<br>プログラミング教育/教材
-    p {{ $store.state.resultPersonalityLv }}
-    p {{ $store.state.resultInterestLv }}
     .rectexts
-      p {{rectext.fields.name}}
-      p {{rectext.fields.description}}
-      p {{rectext.fields.content}}
-      p {{rectext}}
+      h1.title {{ rectext.fields.name }}
+      .stepra-description(v-html="$md.render(rectext.fields.description)")
+      .stepra-content(v-html="$md.render(rectext.fields.content)")
 </template>
 
 <script>
@@ -88,7 +85,6 @@ h2.r-title{
   margin: 0;
   font-weight: bold;
   color: #fff;
-  z-index: 100;
   letter-spacing:1.5px;
 }
 
@@ -100,7 +96,6 @@ h2.r-title{
   left: 0;
   background-color: #52B696;
   background-size:  100%;
-  z-index: 10;
 }
 
 
