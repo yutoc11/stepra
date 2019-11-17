@@ -86,7 +86,7 @@ export default {
             return { route: `tags/${tag.fields.slug}`, payload: tag }
           }),
           ...rextexts.items.map((rectext) => {        // 追記
-            return { route: `rectexts/${rectext.fields.slug}`, payload: rectext }
+            return { route: `recs/${rectext.fields.slug}`, payload: rectext }
           }),
         ]
       })

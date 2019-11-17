@@ -33,7 +33,7 @@
         .result-school
           h2.result-title おすすめのプログラミング教育との向き合い方
           p お子さまの向いているスクールはこういうところですね。
-      nuxt-link(:to="`rectexts/${$store.state.recType}`")
+      nuxt-link(:to="`recs/${$store.state.recType}`")
         .next-result-button おすすめのプログラミング<br>教材/教室をみる
       .retry-button-wrapper.has-text-centered
         b-button(
