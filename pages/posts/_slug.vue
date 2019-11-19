@@ -117,6 +117,7 @@ article.article {
         font-size:14px;
         padding:8px 0;
         border-bottom: 1px solid #E6E6E6;
+        text-align: left;
       }
       li:first-child{
         padding:20px 0 8px 0;

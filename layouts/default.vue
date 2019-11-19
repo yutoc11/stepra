@@ -32,7 +32,7 @@ html {
 .stepra-container{
   max-width: 620px;
   margin: 0 auto;
-  padding:0 50px;
+  padding:12px 12px 50px;
 }
 
 .thumb{

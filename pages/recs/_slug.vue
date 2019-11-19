@@ -84,7 +84,8 @@ h2.r-title{
   padding: 9px 0;
   margin: 0;
   font-weight: bold;
-  color: #fff;
+  border: 2px solid #52B696;
+  border-radius: 5px;
   letter-spacing:1.5px;
 }
 
@@ -94,7 +95,6 @@ h2.r-title{
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #52B696;
   background-size:  100%;
 }
 
