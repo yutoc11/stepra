@@ -468,17 +468,17 @@ export default {
         this.setResultType(4);
       }
 
-      console.log(this.$store.state.resultType);
-
       // 結果タイプの計算
       const pLv = this.$store.state.resultPersonalityLv;
-      const iLv = this.$store.state.resultPersonalityLv;
+      const iLv = this.$store.state.resultInterestLv;
       this.calcRecType(pLv,iLv);
       console.log(this.$store.state.recType)
 
       this.$nextTick(() => {
+
         this.$parent.resultPosition['left'] = `calc(${moveXpercent}% - 15px)`;
-        this.$parent.resultPosition['top'] = `calc(${moveYpercent}% - 15px)`;
+        this.$parent.resultPosition['top']  = `calc(${moveYpercent}% - 15px)`;
+
       });
     },
   }

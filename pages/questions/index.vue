@@ -18,10 +18,11 @@
 
     .q-result-wrapper.stepra-content(v-if="result")
       h2.result-title.result-mapping-title お子様の診断結果は・・・
-      .result-mapping-wrapper
-        .result-mapping-child
+      .result-box
+        .result-mapping-background
           img(src="~/assets/images/mapping_child.png")
-        .dot(v-bind:style="resultPosition")
+        .dot-box
+          .dot(v-bind:style="resultPosition")
       .result-child-wrapper
         .result-interest
           h2.result-title ITへの興味関心
@@ -134,7 +135,6 @@ h2.q-title{
   margin: 0;
   font-weight: bold;
   color: #fff;
-  z-index: 100;
   letter-spacing:1.5px;
 }
 
@@ -149,7 +149,6 @@ h2.q-title{
   background-color: #52B696;
   background-size:  100%;
   //opacity: 0.4;
-  z-index: 10;
 }
 
 .q-status-wrapper{
@@ -238,6 +237,7 @@ li.navSelectedResult{
   position: relative;
   width: 100%;
   margin: 18px auto;
+
   .dot{
     position: absolute;
     width: 30px;
@@ -245,6 +245,47 @@ li.navSelectedResult{
     border-radius: 50%;
     background-image: linear-gradient(45deg, #709dff 0%, #91fdb7 100%);
   }
+}
+
+.result-box {
+    position:relative;
+    top: 50%;
+    margin: 18px auto;
+}
+
+.result-box .result-mapping-background { z-index: 0; }
+
+.result-mapping-background{
+
+}
+
+.result-box .dot-box {
+    z-index: 10;
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+.dot-box{
+  width:78%;
+  height: 62%;
+  //background-color: #ccc;
+  .dot{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-image: linear-gradient(45deg, #709dff 0%, #91fdb7 100%);
+  }
+}
+
+.result-box .dot-box img {
+    width: 90%;
+    min-width: 300px;
+    height: auto;
+    margin: 0 auto;
 }
 
 .next-result-button{
