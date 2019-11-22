@@ -97,6 +97,25 @@ h1.title {
   }
 }
 
+.stepra-button{
+  font-size: 14px;
+  padding: 4px 10px;
+  margin: 18px auto;
+  border: 1px solid #e6e6e6;
+  background: #52B696;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  align-items: center;
+  text-align: center;
+  max-width: 300px;
+}
+
+.stepra-button:hover{
+  opacity:0.7;
+}
+
 @media screen and (max-width: 480px) {
   h1.title {
     font-size: 24px;

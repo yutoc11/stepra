@@ -7,6 +7,8 @@
       h1.title {{ rectext.fields.name }}
       .stepra-description(v-html="$md.render(rectext.fields.description)")
       .stepra-content(v-html="$md.render(rectext.fields.content)")
+    nuxt-link(to="/")
+      .stepra-button TOPへ
 </template>
 
 <script>
