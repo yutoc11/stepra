@@ -786,7 +786,7 @@ p.question-progress{
     width: 50px;
     height: 50px;
     line-height:50px;
-    top: 95vw;
+    top: 260px;
   }
 
   .section__btn--pre:hover,
