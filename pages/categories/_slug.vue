@@ -43,7 +43,7 @@ export default {
     background: #fff;
 
     .category-name{
-      background: #99E1D7;
+      background: #52B696;
       border-radius: 3px;
       color: #fff;
       max-width: 500px;
@@ -54,6 +54,7 @@ export default {
 
     h1{
       font-size: 20px;
+      font-weight: bold;
     }
 
   }

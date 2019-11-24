@@ -1,14 +1,31 @@
 <template lang="pug">
-  section.stepra-container
-    .r-title-wrapper
-      .r-title-bg
-      h2.r-title お子様に合った、<br>プログラミング教育/教材
-    .rectexts
-      h1.title {{ rectext.fields.name }}
-      .stepra-description(v-html="$md.render(rectext.fields.description)")
-      .stepra-content(v-html="$md.render(rectext.fields.content)")
-    nuxt-link(to="/")
-      .stepra-button TOPへ
+  section
+    .stepra-container
+      .r-title-wrapper
+        .r-title-bg
+        h2.r-title お子様に合った、<br>プログラミング教育/教材
+      .rectexts
+        h1.title {{ rectext.fields.name }}
+        .stepra-description(v-html="$md.render(rectext.fields.description)")
+        .stepra-content(v-html="$md.render(rectext.fields.content)")
+      //-nuxt-link(to="/")
+        .stepra-button TOPへ
+      .stepra-sub-button-wrapper.has-text-centered
+        b-button(
+          size="is-small"
+          rounded
+          has-addons
+          is-centered
+          )
+          nuxt-link.text-gray(
+            to="/questions"
+            ) もう一度診断する
+    //-.section
+      .recs-contents
+        h2 プログラミング教育ガイド
+      posts-index(
+        :posts="posts"
+        :linkTo="linkTo")
 </template>
 
 <script>
@@ -100,6 +117,17 @@ h2.r-title{
   background-size:  100%;
 }
 
+.recs-contents{
+  background-color: #F7F9F9;
+  padding: 18px 0 0 0;
+  margin: 0 auto;
+  h2{
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+}
 
 //ここからスマホ
 @media screen and (max-width: 480px) {

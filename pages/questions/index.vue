@@ -43,7 +43,7 @@
           rounded
           has-addons
           is-centered
-          ) もう一度
+          ) もう一度診断する
 </template>
 
 <script>

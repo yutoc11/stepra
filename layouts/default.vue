@@ -116,6 +116,17 @@ h1.title {
   opacity:0.7;
 }
 
+.stepra-sub-button-wrapper{
+  .button{
+    color: #B0B3B2;
+    font-size: 0.7rem;
+  }
+}
+
+.text-gray{
+  color: #B0B3B2;
+}
+
 @media screen and (max-width: 480px) {
   h1.title {
     font-size: 24px;
