@@ -116,6 +116,18 @@ h1.title {
   opacity:0.7;
 }
 
+.youtube-button{
+  background-color: transparent;
+  border: 2px solid #ED462F;
+  color:#7F7F7F;
+}
+
+.stepra-border-button{
+  background-color: transparent;
+  color:#7F7F7F;
+  border: 2px solid #52B696;
+}
+
 .stepra-sub-button-wrapper{
   .button{
     color: #B0B3B2;

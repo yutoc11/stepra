@@ -51,6 +51,7 @@ export default {
   modules: [
     '@nuxtjs/dotenv',
     '@nuxtjs/markdownit',
+    '@nuxtjs/redirect-module',
     ['@nuxtjs/google-analytics', {
       id: 'UA-149861330-1'
     }],
@@ -120,4 +121,7 @@ export default {
     }
     // generate: true,
   },
+  redirect: [
+    //{ from: '^/$', to: '/questions', statusCode: 302},
+  ]
 }
