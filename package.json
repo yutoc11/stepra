@@ -23,7 +23,7 @@
     "markdown-it": "^10.0.0",
     "markdown-it-anchor": "^5.2.4",
     "markdown-it-table-of-contents": "^0.4.4",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
     "nuxt-buefy": "^0.3.16",
     "pug": "^2.0.4",
